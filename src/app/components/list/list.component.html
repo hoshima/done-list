@@ -1,0 +1,16 @@
+@for (item of list; track $index) {
+  <div>
+    <div class="text-sm">
+      {{ item.id }}
+    </div>
+    <div class="text-xl">
+      {{ item.name }}
+    </div>
+    <div>
+      {{ item.description }}
+    </div>
+    <div>
+      {{ item.date | date: "yyyy/MM/dd" }}
+    </div>
+  </div>
+}
