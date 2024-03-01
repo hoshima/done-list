@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListItem } from '../../interfaces/list-item';
+import { CreateListItem } from '../../interfaces/list-item';
 
 @Component({
   selector: 'app-form',
@@ -14,9 +14,7 @@ import { ListItem } from '../../interfaces/list-item';
   `,
 })
 export class FormComponent {
-  @Output() add = new EventEmitter<
-    Pick<ListItem, 'name' | 'date' | 'description'>
-  >();
+  @Output() add = new EventEmitter<CreateListItem>();
 
   name = '';
   date = new Date();

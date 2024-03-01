@@ -4,3 +4,6 @@ export interface ListItem {
   description: string;
   date: Date;
 }
+
+export interface CreateListItem
+  extends Pick<ListItem, 'name' | 'date' | 'description'> {}
