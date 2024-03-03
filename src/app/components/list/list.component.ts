@@ -7,10 +7,11 @@ import { DatePipe } from '@angular/common';
   standalone: true,
   imports: [DatePipe],
   templateUrl: './list.component.html',
-  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
-  host: {
-    class: 'block container mx-auto',
-  },
+  styles: `
+    :host {
+      display: block;
+    }
+  `,
 })
 export class ListComponent {
   list = input.required<ListItem[]>();

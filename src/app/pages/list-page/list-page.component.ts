@@ -8,11 +8,10 @@ import { CreateListItem, ListItem } from '../../interfaces/list-item';
   standalone: true,
   imports: [ListComponent, FormComponent],
   templateUrl: './list-page.component.html',
-  styles: `
-    :host {
-      display: block;
-    }
-  `,
+  // eslint-disable-next-line @angular-eslint/no-host-metadata-property
+  host: {
+    class: 'block container mx-auto',
+  },
 })
 export default class ListPageComponent {
   list: ListItem[] = [
@@ -31,6 +30,9 @@ export default class ListPageComponent {
   ];
 
   addTask(task: CreateListItem) {
-    console.log(task);
+    this.list.push({
+      id: crypto.randomUUID(),
+      ...task,
+    });
   }
 }
