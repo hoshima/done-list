@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ListItem } from '../../interfaces/list-item';
 import { DatePipe } from '@angular/common';
 
@@ -13,18 +13,5 @@ import { DatePipe } from '@angular/common';
   },
 })
 export class ListComponent {
-  list: ListItem[] = [
-    {
-      id: crypto.randomUUID(),
-      name: 'sample name',
-      description: 'sample description',
-      date: new Date(),
-    },
-    {
-      id: crypto.randomUUID(),
-      name: 'sample name2',
-      description: 'sample description2',
-      date: new Date(),
-    },
-  ];
+  list = input.required<ListItem[]>();
 }
