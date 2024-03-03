@@ -1,7 +1,21 @@
 <form class="flex flex-col gap-4">
-  <input type="text" name="name" [(ngModel)]="name" />
-  <input type="date" name="date" [(ngModel)]="date" />
-  <textarea name="description" [(ngModel)]="description"></textarea>
-  <button type="button" (click)="addTask()">追加</button>
+  <mat-form-field class="example-full-width">
+    <mat-label>タイトル</mat-label>
+    <input matInput type="text" name="name" [(ngModel)]="name" />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>日付</mat-label>
+    <input matInput type="date" name="date" [(ngModel)]="date" />
+  </mat-form-field>
+
+  <mat-form-field class="example-full-width">
+    <mat-label>備考</mat-label>
+    <textarea matInput name="description" [(ngModel)]="description"></textarea>
+  </mat-form-field>
+
+  <button mat-flat-button color="primary" type="button" (click)="addTask()">
+    追加
+  </button>
 </form>
 　
