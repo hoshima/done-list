@@ -14,25 +14,21 @@ import { CreateListItem, ListItem } from '../../interfaces/list-item';
   },
 })
 export default class ListPageComponent {
-  list: ListItem[] = [
-    {
-      id: crypto.randomUUID(),
-      name: 'sample name',
-      description: 'sample description',
-      date: new Date(),
-    },
-    {
-      id: crypto.randomUUID(),
-      name: 'sample name2',
-      description: 'sample description2',
-      date: new Date(),
-    },
-  ];
+  list: ListItem[] = [];
+
+  constructor() {
+    const list = localStorage.getItem('list');
+    if (list) {
+      this.list = JSON.parse(list);
+    }
+  }
 
   addTask(task: CreateListItem) {
     this.list.push({
       id: crypto.randomUUID(),
       ...task,
     });
+
+    localStorage.setItem('list', JSON.stringify(this.list));
   }
 }
