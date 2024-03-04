@@ -1,16 +1,31 @@
-@for (item of list(); track $index) {
-  <div>
-    <div class="text-sm">
-      {{ item.id }}
-    </div>
-    <div class="text-xl">
-      {{ item.name }}
-    </div>
-    <div>
-      {{ item.description }}
-    </div>
-    <div>
-      {{ item.date | date: "yyyy/MM/dd" }}
-    </div>
-  </div>
-}
+<div class="flex flex-col gap-4">
+  @for (item of list(); track $index) {
+    <mat-card>
+      <mat-card-content class="!flex">
+        <div class="flex-1">
+          <div class="text-sm">
+            {{ item.id }}
+          </div>
+          <div class="text-xl">
+            {{ item.name }}
+          </div>
+          <div>
+            {{ item.description }}
+          </div>
+          <div>
+            {{ item.date | date: "yyyy/MM/dd" }}
+          </div>
+        </div>
+        <div class="flex-none">
+          <button
+            mat-icon-button
+            color="warn"
+            aria-label="Example icon button with a heart icon"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </mat-card-content>
+    </mat-card>
+  }
+</div>

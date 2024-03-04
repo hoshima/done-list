@@ -1,11 +1,14 @@
 import { Component, input } from '@angular/core';
 import { ListItem } from '../../interfaces/list-item';
 import { DatePipe } from '@angular/common';
+import { MatCard, MatCardContent } from '@angular/material/card';
+import { MatIconButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [DatePipe],
+  imports: [DatePipe, MatCard, MatCardContent, MatIconButton, MatIcon],
   templateUrl: './list.component.html',
   styles: `
     :host {
