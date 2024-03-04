@@ -1,2 +1,2 @@
 <app-form (add)="addTask($event)" />
-<app-list [list]="list" />
+<app-list [list]="list" (deleteItem)="onDeleteItem($event)" />

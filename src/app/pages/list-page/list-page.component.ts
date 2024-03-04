@@ -31,4 +31,10 @@ export default class ListPageComponent {
 
     localStorage.setItem('list', JSON.stringify(this.list));
   }
+
+  onDeleteItem(id: string) {
+    this.list = this.list.filter((x) => x.id !== id);
+
+    localStorage.setItem('list', JSON.stringify(this.list));
+  }
 }
