@@ -1,21 +1,47 @@
-<form class="flex flex-col gap-4 py-4">
-  <mat-form-field class="example-full-width">
+<form #formModel="ngForm" class="flex flex-col gap-4 py-4">
+  <mat-form-field>
     <mat-label>タイトル</mat-label>
-    <input matInput type="text" name="name" [(ngModel)]="name" />
+    <input
+      matInput
+      type="text"
+      name="name"
+      [(ngModel)]="name"
+      required
+      #nameModel="ngModel"
+    />
+    @if (nameModel.invalid) {
+      <mat-error>必須入力です</mat-error>
+    }
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
     <mat-label>日付</mat-label>
-    <input matInput type="date" name="date" [(ngModel)]="date" />
+    <input
+      matInput
+      type="date"
+      name="date"
+      [(ngModel)]="date"
+      required
+      max="9999-12-31"
+      #dateModel="ngModel"
+    />
+    @if (dateModel.invalid) {
+      <mat-error>必須入力です</mat-error>
+    }
   </mat-form-field>
 
-  <mat-form-field class="example-full-width">
+  <mat-form-field>
     <mat-label>備考</mat-label>
     <textarea matInput name="description" [(ngModel)]="description"></textarea>
   </mat-form-field>
 
-  <button mat-flat-button color="primary" type="button" (click)="addTask()">
+  <button
+    mat-flat-button
+    color="primary"
+    type="button"
+    (click)="addTask()"
+    [disabled]="!formModel.valid"
+  >
     追加
   </button>
 </form>
-　
