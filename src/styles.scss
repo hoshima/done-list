@@ -55,3 +55,9 @@ body {
 .mat-mdc-input-element {
   box-shadow: none !important;
 }
+
+// <input type="date">のカレンダーボタンを表示する
+// https://material.angular.io/guide/mdc-migration#input
+input.mat-mdc-input-element::-webkit-calendar-picker-indicator {
+  display: block;
+}
