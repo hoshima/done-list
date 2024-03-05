@@ -3,6 +3,7 @@ import { FormsModule } from '@angular/forms';
 import { CreateListItem } from '../../interfaces/list-item';
 import { MatFormField, MatInput, MatLabel } from '@angular/material/input';
 import { MatButton } from '@angular/material/button';
+import { cdate } from 'cdate';
 
 @Component({
   selector: 'app-form',
@@ -19,7 +20,7 @@ export class FormComponent {
   @Output() add = new EventEmitter<CreateListItem>();
 
   name = '';
-  date = new Date();
+  date = cdate().format('YYYY-MM-DD');
   description = '';
 
   addTask() {
