@@ -1,2 +1,13 @@
 <app-form (add)="addTask($event)" />
 <app-list [list]="list" (deleteItem)="onDeleteItem($event)" />
+
+<div class="fixed right-4 bottom-4">
+  <button
+    mat-fab
+    color="primary"
+    aria-label="やったことを登録"
+    (click)="openAddDialog()"
+  >
+    <mat-icon>add</mat-icon>
+  </button>
+</div>

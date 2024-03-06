@@ -2,11 +2,13 @@ import { Component } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
 import { FormComponent } from '../../components/form/form.component';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
+import { MatFabButton } from '@angular/material/button';
+import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-list-page',
   standalone: true,
-  imports: [ListComponent, FormComponent],
+  imports: [ListComponent, FormComponent, MatFabButton, MatIcon],
   templateUrl: './list-page.component.html',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
@@ -37,4 +39,6 @@ export default class ListPageComponent {
 
     localStorage.setItem('list', JSON.stringify(this.list));
   }
+
+  openAddDialog() {}
 }
