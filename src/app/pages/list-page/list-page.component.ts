@@ -1,14 +1,16 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
-import { FormComponent } from '../../components/form/form.component';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { MatDialog } from '@angular/material/dialog';
+import { FormComponent } from '../../components/form/form.component';
+import { filter } from 'rxjs';
 
 @Component({
   selector: 'app-list-page',
   standalone: true,
-  imports: [ListComponent, FormComponent, MatFabButton, MatIcon],
+  imports: [ListComponent, MatFabButton, MatIcon],
   templateUrl: './list-page.component.html',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: {
@@ -16,6 +18,8 @@ import { MatIcon } from '@angular/material/icon';
   },
 })
 export default class ListPageComponent {
+  readonly #dialog = inject(MatDialog);
+
   list: ListItem[] = [];
 
   constructor() {
@@ -25,7 +29,21 @@ export default class ListPageComponent {
     }
   }
 
-  addTask(task: CreateListItem) {
+  onDeleteItem(id: string) {
+    this.list = this.list.filter((x) => x.id !== id);
+
+    localStorage.setItem('list', JSON.stringify(this.list));
+  }
+
+  openAddDialog() {
+    this.#dialog
+      .open<FormComponent, null, CreateListItem>(FormComponent)
+      .afterClosed()
+      .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
+      .subscribe((x) => this.addTask(x));
+  }
+
+  private addTask(task: CreateListItem) {
     this.list.push({
       id: crypto.randomUUID(),
       ...task,
@@ -33,12 +51,4 @@ export default class ListPageComponent {
 
     localStorage.setItem('list', JSON.stringify(this.list));
   }
-
-  onDeleteItem(id: string) {
-    this.list = this.list.filter((x) => x.id !== id);
-
-    localStorage.setItem('list', JSON.stringify(this.list));
-  }
-
-  openAddDialog() {}
 }
