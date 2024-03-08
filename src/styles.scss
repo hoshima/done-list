@@ -26,6 +26,8 @@ $done-list-theme: mat.define-light-theme(
       accent: $done-list-accent,
       warn: $done-list-warn,
     ),
+    typography: mat.define-typography-config(),
+    density: 0,
   )
 );
 
