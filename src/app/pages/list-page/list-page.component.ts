@@ -4,7 +4,7 @@ import { CreateListItem } from '../../interfaces/list-item';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
-import { FormComponent } from '../../components/form/form.component';
+import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { filter } from 'rxjs';
 import { TasksRepository } from '../../states/tasks.repository';
 import { AsyncPipe } from '@angular/common';
@@ -31,7 +31,7 @@ export default class ListPageComponent {
 
   openAddDialog() {
     this.#dialog
-      .open<FormComponent, null, CreateListItem>(FormComponent)
+      .open<TaskFormComponent, null, CreateListItem>(TaskFormComponent)
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
       .subscribe((task) =>

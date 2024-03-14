@@ -32,15 +32,15 @@ import {
     MatDialogActions,
     MatDialogClose,
   ],
-  templateUrl: './form.component.html',
+  templateUrl: './task-form.component.html',
   styles: `
     :host {
       display: block;
     }
   `,
 })
-export class FormComponent {
-  dialogRef = inject(MatDialogRef<FormComponent>);
+export class TaskFormComponent {
+  dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
   @Output() add = new EventEmitter<CreateListItem>();
 
