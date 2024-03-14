@@ -1,4 +1,6 @@
-<app-list [list]="list" (deleteItem)="onDeleteItem($event)" />
+@if (tasks$ | async; as tasks) {
+  <app-list [list]="tasks" (deleteItem)="onDeleteItem($event)" />
+}
 
 <div class="fixed right-4 bottom-4">
   <button
