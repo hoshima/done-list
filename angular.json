@@ -110,6 +110,23 @@
               "src/**/*.html"
             ]
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {
+            "version": 2
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "done-list:build:production",
+              "serveTarget": "done-list:serve:production"
+            },
+            "development": {
+              "buildTarget": "done-list:build:development",
+              "serveTarget": "done-list:serve:development"
+            }
+          },
+          "defaultConfiguration": "production"
         }
       }
     }

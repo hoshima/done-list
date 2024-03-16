@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "done-list-58de5": {
+      "hosting": {
+        "done-list": [
+          "done-list-58de5"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "done-list-58de5"
+  }
+}
