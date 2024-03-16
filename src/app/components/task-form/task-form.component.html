@@ -1,8 +1,8 @@
-<h2 mat-dialog-title>やったことを書いてください</h2>
+<h2 mat-dialog-title>What did you do?</h2>
 <mat-dialog-content>
   <form #formModel="ngForm" class="flex flex-col gap-4 py-4">
     <mat-form-field>
-      <mat-label>タイトル</mat-label>
+      <mat-label>name</mat-label>
       <input
         matInput
         type="text"
@@ -12,12 +12,12 @@
         #nameModel="ngModel"
       />
       @if (nameModel.invalid) {
-        <mat-error>必須入力です</mat-error>
+        <mat-error>required</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>日付</mat-label>
+      <mat-label>date</mat-label>
       <input
         matInput
         type="date"
@@ -28,12 +28,12 @@
         #dateModel="ngModel"
       />
       @if (dateModel.invalid) {
-        <mat-error>必須入力です</mat-error>
+        <mat-error>required</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label>備考</mat-label>
+      <mat-label>description</mat-label>
       <textarea
         matInput
         name="description"
@@ -43,7 +43,7 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button mat-button type="button" [mat-dialog-close]="null">閉じる</button>
+  <button mat-button type="button" [mat-dialog-close]="null">close</button>
   <button
     mat-flat-button
     color="primary"
@@ -51,6 +51,6 @@
     (click)="clickAddButton()"
     [disabled]="!formModel.valid"
   >
-    追加
+    add
   </button>
 </mat-dialog-actions>
