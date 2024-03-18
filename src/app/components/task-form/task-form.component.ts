@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Inject, Output, inject } from '@angular/core';
+import { Component, Inject, inject, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import {
@@ -52,7 +52,7 @@ export class TaskFormComponent {
     }
   }
 
-  @Output() add = new EventEmitter<CreateListItem>();
+  add = output<CreateListItem>();
 
   id = '';
   name = '';

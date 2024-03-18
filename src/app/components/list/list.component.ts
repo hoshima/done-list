@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ListItem } from '../../interfaces/list-item';
 import { DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -20,7 +20,7 @@ export class ListComponent {
   list = input.required<ListItem[]>();
 
   editItem = output<string>();
-  @Output() deleteItem = new EventEmitter<string>();
+  deleteItem = output<string>();
 
   clickEditItem(id: string) {
     this.editItem.emit(id);
