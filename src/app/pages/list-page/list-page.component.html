@@ -1,5 +1,9 @@
 @if (tasks$ | async; as tasks) {
-  <app-list [list]="tasks" (deleteItem)="onDeleteItem($event)" />
+  <app-list
+    [list]="tasks"
+    (editItem)="onEditItem($event)"
+    (deleteItem)="onDeleteItem($event)"
+  />
 }
 
 <div class="fixed right-4 bottom-4">

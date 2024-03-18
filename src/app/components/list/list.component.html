@@ -16,6 +16,16 @@
         <div class="flex-none">
           <button
             mat-icon-button
+            color="primary"
+            aria-label="Example icon button with a heart icon"
+            (click)="clickEditItem(item.id)"
+          >
+            <mat-icon>edit</mat-icon>
+          </button>
+        </div>
+        <div class="flex-none">
+          <button
+            mat-icon-button
             color="warn"
             aria-label="Example icon button with a heart icon"
             (click)="clickDeleteItem(item.id)"

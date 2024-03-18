@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
-import { CreateListItem } from '../../interfaces/list-item';
+import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -27,6 +27,21 @@ export default class ListPageComponent {
 
   onDeleteItem(id: string) {
     this.#repo.deleteTask(id);
+  }
+
+  onEditItem(id: string) {
+    const item = this.#repo.getTask(id);
+    if (!item) {
+      return;
+    }
+
+    this.#dialog
+      .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
+        data: item,
+      })
+      .afterClosed()
+      .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
+      .subscribe((task) => this.#repo.updateTask(task.id, task));
   }
 
   openAddDialog() {

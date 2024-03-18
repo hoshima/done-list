@@ -1,6 +1,6 @@
-import { Component, EventEmitter, Output, inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CreateListItem } from '../../interfaces/list-item';
+import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import {
   MatError,
   MatFormField,
@@ -15,6 +15,7 @@ import {
   MatDialogActions,
   MatDialogClose,
   MatDialogRef,
+  MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
 
 @Component({
@@ -42,11 +43,30 @@ import {
 export class TaskFormComponent {
   dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
+  constructor(@Inject(MAT_DIALOG_DATA) public data: ListItem) {
+    if (data) {
+      this.id = data.id;
+      this.name = data.name;
+      this.date = data.date;
+      this.description = data.description;
+    }
+  }
+
   @Output() add = new EventEmitter<CreateListItem>();
 
+  id = '';
   name = '';
   date = cdate().format('YYYY-MM-DD');
   description = '';
+
+  clickEditButton() {
+    this.dialogRef.close({
+      id: this.id,
+      name: this.name,
+      date: this.date,
+      description: this.description,
+    });
+  }
 
   clickAddButton() {
     this.dialogRef.close({

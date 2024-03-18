@@ -44,13 +44,26 @@
 </mat-dialog-content>
 <mat-dialog-actions align="end">
   <button mat-button type="button" [mat-dialog-close]="null">close</button>
-  <button
-    mat-flat-button
-    color="primary"
-    type="button"
-    (click)="clickAddButton()"
-    [disabled]="!formModel.valid"
-  >
-    add
-  </button>
+
+  @if (id) {
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="clickEditButton()"
+      [disabled]="!formModel.valid"
+    >
+      edit
+    </button>
+  } @else {
+    <button
+      mat-flat-button
+      color="primary"
+      type="button"
+      (click)="clickAddButton()"
+      [disabled]="!formModel.valid"
+    >
+      add
+    </button>
+  }
 </mat-dialog-actions>
