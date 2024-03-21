@@ -45,7 +45,7 @@
 <mat-dialog-actions align="end">
   <button mat-button type="button" [mat-dialog-close]="null">close</button>
 
-  @if (id) {
+  @if (id()) {
     <button
       mat-flat-button
       color="primary"

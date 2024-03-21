@@ -1,4 +1,4 @@
-import { Component, Inject, inject, output } from '@angular/core';
+import { Component, Inject, inject, model, output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import {
@@ -43,36 +43,36 @@ import {
 export class TaskFormComponent {
   dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
+  add = output<CreateListItem>();
+
+  id = model<string>();
+  name = model<string>();
+  date = model<string>(cdate().format('YYYY-MM-DD'));
+  description = model<string>();
+
   constructor(@Inject(MAT_DIALOG_DATA) public data: ListItem) {
     if (data) {
-      this.id = data.id;
-      this.name = data.name;
-      this.date = data.date;
-      this.description = data.description;
+      this.id.set(data.id);
+      this.name.set(data.name);
+      this.date.set(data.date);
+      this.description.set(data.description);
     }
   }
 
-  add = output<CreateListItem>();
-
-  id = '';
-  name = '';
-  date = cdate().format('YYYY-MM-DD');
-  description = '';
-
   clickEditButton() {
     this.dialogRef.close({
-      id: this.id,
-      name: this.name,
-      date: this.date,
-      description: this.description,
+      id: this.id(),
+      name: this.name(),
+      date: this.date(),
+      description: this.description(),
     });
   }
 
   clickAddButton() {
     this.dialogRef.close({
-      name: this.name,
-      date: this.date,
-      description: this.description,
+      name: this.name(),
+      date: this.date(),
+      description: this.description(),
     });
   }
 }
