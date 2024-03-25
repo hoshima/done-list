@@ -4,11 +4,19 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { SideMenuComponent } from './components/side-menu/side-menu.component';
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatIcon, MatIconButton, MatToolbar, MatSidenavModule],
+  imports: [
+    RouterOutlet,
+    MatIcon,
+    MatIconButton,
+    MatToolbar,
+    MatSidenavModule,
+    SideMenuComponent,
+  ],
   templateUrl: './app.component.html',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'block h-svh' },
