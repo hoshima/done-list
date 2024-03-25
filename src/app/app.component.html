@@ -1,11 +1,11 @@
 <mat-drawer-container class="h-full" hasBackdrop="true" autosize>
-  <mat-drawer #drawer mode="over">
+  <mat-drawer mode="over" [opened]="drawerOpened$ | async">
     <app-side-menu></app-side-menu>
   </mat-drawer>
 
   <mat-drawer-content>
     <mat-toolbar color="primary" role="heading">
-      <button mat-icon-button aria-label="open menu" (click)="drawer.toggle()">
+      <button mat-icon-button aria-label="open menu" (click)="openDrawer()">
         <mat-icon>menu</mat-icon>
       </button>
       <span>Done List</span>
