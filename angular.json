@@ -14,10 +14,20 @@
       "root": "",
       "sourceRoot": "src",
       "prefix": "app",
+      "i18n": {
+        "sourceLocale": "en-US",
+        "locales": {
+          "ja": {
+            "translation": "src/locale/messages.ja.json",
+            "baseHref": ""
+          }
+        }
+      },
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
+            "localize": ["ja"],
             "outputPath": "dist/done-list",
             "index": "src/index.html",
             "browser": "src/main.ts",
