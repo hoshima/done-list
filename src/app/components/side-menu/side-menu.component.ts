@@ -4,6 +4,7 @@ import { MatIcon } from '@angular/material/icon';
 import { MatActionList, MatListItem } from '@angular/material/list';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { UiRepository } from '../../states/ui.repository';
+import { TasksRepository } from '../../states/tasks.repository';
 
 @Component({
   selector: 'app-side-menu',
@@ -19,9 +20,25 @@ import { UiRepository } from '../../states/ui.repository';
   styles: ``,
 })
 export class SideMenuComponent {
+  tasksRepository = inject(TasksRepository);
   uiRepository = inject(UiRepository);
 
   closeDrawer() {
     this.uiRepository.closeDrawer();
+  }
+
+  onExport() {
+    const jsonString = JSON.stringify(
+      this.tasksRepository.getAllTasks(),
+      undefined,
+      2,
+    );
+
+    const a = document.createElement('a');
+    const file = new Blob([jsonString], { type: 'application/json' });
+    a.href = URL.createObjectURL(file);
+    a.download = 'tasks.json';
+    a.click();
+    a.remove();
   }
 }

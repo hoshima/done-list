@@ -7,6 +7,7 @@ import {
   updateEntities,
   deleteEntities,
   getEntity,
+  getAllEntities,
 } from '@ngneat/elf-entities';
 import { ListItem } from '../interfaces/list-item';
 import { Injectable } from '@angular/core';
@@ -22,6 +23,10 @@ export const persist = persistState(store, {
 @Injectable({ providedIn: 'root' })
 export class TasksRepository {
   tasks$ = store.pipe(selectAllEntities());
+
+  getAllTasks() {
+    return store.query(getAllEntities());
+  }
 
   getTask(id: string) {
     return store.query(getEntity(id));
