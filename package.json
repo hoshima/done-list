@@ -30,6 +30,7 @@
     "@ngneat/elf-entities": "^5.0.1",
     "@ngneat/elf-persist-state": "^1.2.1",
     "cdate": "^0.0.7",
+    "just-order-by": "^1.0.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.14.3"
