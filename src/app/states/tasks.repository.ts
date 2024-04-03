@@ -12,6 +12,8 @@ import {
 import { ListItem } from '../interfaces/list-item';
 import { Injectable } from '@angular/core';
 import { persistState, localStorageStrategy } from '@ngneat/elf-persist-state';
+import { map } from 'rxjs';
+import orderBy from 'just-order-by';
 
 export const store = createStore({ name: 'tasks' }, withEntities<ListItem>());
 
@@ -22,7 +24,21 @@ export const persist = persistState(store, {
 
 @Injectable({ providedIn: 'root' })
 export class TasksRepository {
-  tasks$ = store.pipe(selectAllEntities());
+  tasks$ = store.pipe(
+    selectAllEntities(),
+    map((x) =>
+      orderBy(x, [
+        {
+          property: 'date',
+          order: 'desc',
+        },
+        {
+          property: 'name',
+          order: 'asc',
+        },
+      ]),
+    ),
+  );
 
   getAllTasks() {
     return store.query(getAllEntities());
