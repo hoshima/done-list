@@ -9,7 +9,8 @@
     "test": "ng test",
     "lint": "ng lint",
     "fix": "eslint --cache --fix src/ && prettier --write src/",
-    "i18n": "ng extract-i18n --format=json --output-path src/locale"
+    "i18n": "ng extract-i18n --format=json --output-path src/locale",
+    "deploy": "ng deploy"
   },
   "private": true,
   "dependencies": {
