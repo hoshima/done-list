@@ -4,17 +4,21 @@ import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatMenuModule } from '@angular/material/menu';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { UiRepository } from './states/ui.repository';
 import { AsyncPipe } from '@angular/common';
 import { Subscription } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
   Auth,
   GoogleAuthProvider,
   signInWithPopup,
+  signOut,
   User,
   user,
 } from '@angular/fire/auth';
+import { MatDivider } from '@angular/material/divider';
 
 @Component({
   selector: 'app-root',
@@ -25,6 +29,8 @@ import {
     MatIconButton,
     MatToolbar,
     MatSidenavModule,
+    MatMenuModule,
+    MatDivider,
     SideMenuComponent,
     AsyncPipe,
   ],
@@ -39,15 +45,17 @@ export class AppComponent {
 
   drawerOpened$ = this.uiRepository.drawerOpened$;
 
-  private auth: Auth = inject(Auth);
+  private auth = inject(Auth);
   user$ = user(this.auth);
   userSubscription: Subscription;
 
   constructor() {
-    this.userSubscription = this.user$.subscribe((aUser: User | null) => {
-      //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-      console.log(aUser);
-    });
+    this.userSubscription = this.user$
+      .pipe(takeUntilDestroyed())
+      .subscribe((aUser: User | null) => {
+        //handle user state changes here. Note, that user will be null if there is no currently logged in user.
+        console.log(aUser);
+      });
   }
 
   openDrawer() {
@@ -56,9 +64,12 @@ export class AppComponent {
 
   async login() {
     const provider = new GoogleAuthProvider();
-    const cred = await signInWithPopup(this.auth, provider);
-    console.log(cred);
+    await signInWithPopup(this.auth, provider);
+    console.log(this.auth);
+  }
 
-    // await this.router.navigate(this.redirect);
+  async logout() {
+    await signOut(this.auth);
+    this.userSubscription.unsubscribe();
   }
 }

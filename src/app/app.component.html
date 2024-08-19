@@ -10,9 +10,30 @@
       </button>
       <span>Done List</span>
       <span class="flex-auto"></span>
-      <button mat-icon-button aria-label="login" (click)="login()">
+      <button
+        mat-icon-button
+        aria-label="open login menu"
+        [matMenuTriggerFor]="menu"
+      >
         <mat-icon>person</mat-icon>
       </button>
+      <mat-menu #menu="matMenu">
+        @if (user$ | async; as user) {
+          <div mat-menu-item>
+            {{ user.displayName }}
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>ログアウト</span>
+          </button>
+        } @else {
+          <button mat-menu-item (click)="login()">
+            <mat-icon>login</mat-icon>
+            <span>ログイン</span>
+          </button>
+        }
+      </mat-menu>
     </mat-toolbar>
 
     <main class="pt-4">
