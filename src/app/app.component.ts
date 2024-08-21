@@ -8,17 +8,8 @@ import { MatMenuModule } from '@angular/material/menu';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { UiRepository } from './states/ui.repository';
 import { AsyncPipe } from '@angular/common';
-import { Subscription } from 'rxjs';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import {
-  Auth,
-  GoogleAuthProvider,
-  signInWithPopup,
-  signOut,
-  User,
-  user,
-} from '@angular/fire/auth';
 import { MatDivider } from '@angular/material/divider';
+import { AuthService } from './services/auth.service';
 
 @Component({
   selector: 'app-root',
@@ -40,36 +31,22 @@ import { MatDivider } from '@angular/material/divider';
 })
 export class AppComponent {
   uiRepository = inject(UiRepository);
+  authService = inject(AuthService);
 
   title = 'done-list';
 
   drawerOpened$ = this.uiRepository.drawerOpened$;
-
-  private auth = inject(Auth);
-  user$ = user(this.auth);
-  userSubscription: Subscription;
-
-  constructor() {
-    this.userSubscription = this.user$
-      .pipe(takeUntilDestroyed())
-      .subscribe((aUser: User | null) => {
-        //handle user state changes here. Note, that user will be null if there is no currently logged in user.
-        console.log(aUser);
-      });
-  }
+  user$ = this.authService.user$;
 
   openDrawer() {
     this.uiRepository.openDrawer();
   }
 
   async login() {
-    const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider);
-    console.log(this.auth);
+    this.authService.login();
   }
 
   async logout() {
-    await signOut(this.auth);
-    this.userSubscription.unsubscribe();
+    this.authService.logout();
   }
 }
