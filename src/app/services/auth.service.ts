@@ -27,6 +27,10 @@ export class AuthService {
       });
   }
 
+  gerUser() {
+    return this.auth.currentUser;
+  }
+
   async login() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(this.auth, provider);

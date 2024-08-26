@@ -8,6 +8,7 @@ import { TaskFormComponent } from '../../components/task-form/task-form.componen
 import { filter } from 'rxjs';
 import { TasksRepository } from '../../states/tasks.repository';
 import { AsyncPipe } from '@angular/common';
+import { FirestoreService } from '../../services/firestore.service';
 
 @Component({
   selector: 'app-list-page',
@@ -22,6 +23,7 @@ import { AsyncPipe } from '@angular/common';
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
   readonly #repo = inject(TasksRepository);
+  readonly #firestoreService = inject(FirestoreService);
 
   tasks$ = this.#repo.tasks$;
 
@@ -49,11 +51,13 @@ export default class ListPageComponent {
       .open<TaskFormComponent, null, CreateListItem>(TaskFormComponent)
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
-      .subscribe((task) =>
+      .subscribe((task) => {
         this.#repo.addTask({
           id: crypto.randomUUID(),
           ...task,
-        }),
-      );
+        });
+
+        this.#firestoreService.addTask(task);
+      });
   }
 }
