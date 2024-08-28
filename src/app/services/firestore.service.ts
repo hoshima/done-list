@@ -30,7 +30,12 @@ export class FirestoreService {
 
       (
         collectionData(
-          query(this.tasksCollection, where('uid', '==', user.uid ?? '')),
+          query(
+            this.tasksCollection,
+            where('uid', '==', user.uid ?? ''),
+            orderBy('date', 'desc'),
+          ),
+          { idField: 'id' },
         ) as Observable<Task[]>
       ).subscribe((x) => {
         this.tasks.set(x);

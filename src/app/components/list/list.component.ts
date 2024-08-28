@@ -1,10 +1,9 @@
-import { Component, input, output } from '@angular/core';
-import { ListItem } from '../../interfaces/list-item';
+import { Component, inject, output } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { Task } from '../../types/task.type';
+import { FirestoreService } from '../../services/firestore.service';
 
 @Component({
   selector: 'app-list',
@@ -18,7 +17,9 @@ import { Task } from '../../types/task.type';
   `,
 })
 export class ListComponent {
-  list = input.required<ListItem[] | Task[]>();
+  readonly #firestoreService = inject(FirestoreService);
+
+  tasks = this.#firestoreService.tasks;
 
   editItem = output<string>();
   deleteItem = output<string>();
