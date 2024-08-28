@@ -4,6 +4,7 @@ import { DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
+import { Task } from '../../types/task.type';
 
 @Component({
   selector: 'app-list',
@@ -17,7 +18,7 @@ import { MatIcon } from '@angular/material/icon';
   `,
 })
 export class ListComponent {
-  list = input.required<ListItem[]>();
+  list = input.required<ListItem[] | Task[]>();
 
   editItem = output<string>();
   deleteItem = output<string>();

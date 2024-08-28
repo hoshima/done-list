@@ -26,6 +26,7 @@ export default class ListPageComponent {
   readonly #firestoreService = inject(FirestoreService);
 
   tasks$ = this.#repo.tasks$;
+  tasks = this.#firestoreService.tasks;
 
   onDeleteItem(id: string) {
     this.#repo.deleteTask(id);
