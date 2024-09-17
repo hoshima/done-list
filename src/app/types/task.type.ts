@@ -5,3 +5,4 @@ export type Task = {
   date: string;
   description: string;
 };
+export type TaskCreate = Omit<Task, 'id'>;

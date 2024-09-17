@@ -1,7 +1,7 @@
 export interface ListItem {
   id: string;
   name: string;
-  description: string;
+  description: string | undefined;
   date: string;
 }
 

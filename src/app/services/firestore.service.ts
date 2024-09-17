@@ -9,7 +9,7 @@ import {
   query,
   where,
 } from '@angular/fire/firestore';
-import { Task } from '../types/task.type';
+import { Task, TaskCreate } from '../types/task.type';
 import { CreateListItem } from '../interfaces/list-item';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
@@ -47,11 +47,11 @@ export class FirestoreService {
     const user = this.#authService.gerUser();
     if (!user) return;
 
-    await addDoc(this.tasksCollection, <Task>{
+    await addDoc(this.tasksCollection, {
       uid: user.uid,
       name: task.name,
       date: task.date,
-      description: task.description,
-    });
+      description: task.description ?? '',
+    } satisfies TaskCreate);
   }
 }
