@@ -27,8 +27,12 @@ export default class ListPageComponent {
 
   tasks$ = this.#repo.tasks$;
 
-  onDeleteItem(id: string) {
-    this.#repo.deleteTask(id);
+  onDeleteItem([id, name]: [string, string]) {
+    if (!confirm(`${name}を削除しますか？`)) {
+      return;
+    }
+
+    this.#firestoreService.deleteTask(id);
   }
 
   onEditItem(id: string) {

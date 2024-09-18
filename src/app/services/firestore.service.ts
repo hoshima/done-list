@@ -4,6 +4,8 @@ import {
   collection,
   collectionData,
   CollectionReference,
+  deleteDoc,
+  doc,
   Firestore,
   orderBy,
   query,
@@ -53,5 +55,11 @@ export class FirestoreService {
       date: task.date,
       description: task.description ?? '',
     } satisfies TaskCreate);
+  }
+
+  async deleteTask(id: string) {
+    const task = doc(this.#firestore, 'tasks', id);
+
+    await deleteDoc(task);
   }
 }

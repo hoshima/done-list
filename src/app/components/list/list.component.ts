@@ -22,13 +22,13 @@ export class ListComponent {
   tasks = this.#firestoreService.tasks;
 
   editItem = output<string>();
-  deleteItem = output<string>();
+  deleteItem = output<[string, string]>();
 
   clickEditItem(id: string) {
     this.editItem.emit(id);
   }
 
-  clickDeleteItem(id: string) {
-    this.deleteItem.emit(id);
+  clickDeleteItem(id: string, name: string) {
+    this.deleteItem.emit([id, name]);
   }
 }
