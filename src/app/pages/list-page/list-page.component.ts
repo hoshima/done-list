@@ -9,6 +9,7 @@ import { filter } from 'rxjs';
 import { TasksRepository } from '../../states/tasks.repository';
 import { AsyncPipe } from '@angular/common';
 import { FirestoreService } from '../../services/firestore.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-list-page',
@@ -22,6 +23,7 @@ import { FirestoreService } from '../../services/firestore.service';
 })
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
+  readonly #snackBar = inject(MatSnackBar);
   readonly #repo = inject(TasksRepository);
   readonly #firestoreService = inject(FirestoreService);
 
@@ -33,11 +35,13 @@ export default class ListPageComponent {
     }
 
     this.#firestoreService.deleteTask(id);
+    this.#snackBar.open(`${name}を削除しました`);
   }
 
   async onEditItem(id: string) {
     const item = await this.#firestoreService.getTaskData(id);
     if (!item) {
+      this.#snackBar.open(`アイテムが存在しません`);
       return;
     }
 
