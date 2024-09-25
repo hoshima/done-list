@@ -20,6 +20,10 @@ export class AuthService {
     return this.auth.currentUser;
   }
 
+  async isLoggedIn() {
+    return !!this.user();
+  }
+
   async login() {
     const provider = new GoogleAuthProvider();
     await signInWithPopup(this.auth, provider);

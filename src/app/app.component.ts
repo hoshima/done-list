@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar } from '@angular/material/toolbar';
@@ -29,7 +29,7 @@ import { AuthService } from './services/auth.service';
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'block h-svh' },
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   uiRepository = inject(UiRepository);
   authService = inject(AuthService);
 
@@ -37,6 +37,15 @@ export class AppComponent {
 
   drawerOpened$ = this.uiRepository.drawerOpened$;
   user$ = this.authService.user$;
+
+  async ngOnInit(): Promise<void> {
+    setTimeout(async () => {
+      const isLoggedIn = await this.authService.isLoggedIn();
+      if (!isLoggedIn) {
+        alert('ログインしてください');
+      }
+    }, 1000);
+  }
 
   openDrawer() {
     this.uiRepository.openDrawer();
