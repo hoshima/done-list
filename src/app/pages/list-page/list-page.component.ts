@@ -35,19 +35,19 @@ export default class ListPageComponent {
     this.#firestoreService.deleteTask(id);
   }
 
-  onEditItem(id: string) {
-    const item = this.#repo.getTask(id);
+  async onEditItem(id: string) {
+    const item = await this.#firestoreService.getTaskData(id);
     if (!item) {
       return;
     }
 
     this.#dialog
       .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
-        data: item,
+        data: { ...item, id },
       })
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
-      .subscribe((task) => this.#repo.updateTask(task.id, task));
+      .subscribe((task) => this.#firestoreService.updateTask(task.id, task));
   }
 
   openAddDialog() {
