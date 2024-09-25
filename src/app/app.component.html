@@ -4,37 +4,7 @@
   </mat-drawer>
 
   <mat-drawer-content>
-    <mat-toolbar color="primary" role="heading">
-      <button mat-icon-button aria-label="open menu" (click)="openDrawer()">
-        <mat-icon>menu</mat-icon>
-      </button>
-      <span>Done List</span>
-      <span class="flex-auto"></span>
-      <button
-        mat-icon-button
-        aria-label="open login menu"
-        [matMenuTriggerFor]="menu"
-      >
-        <mat-icon>person</mat-icon>
-      </button>
-      <mat-menu #menu="matMenu">
-        @if (user$ | async; as user) {
-          <div mat-menu-item>
-            {{ user.displayName }}
-          </div>
-          <mat-divider></mat-divider>
-          <button mat-menu-item (click)="logout()">
-            <mat-icon>logout</mat-icon>
-            <span>ログアウト</span>
-          </button>
-        } @else {
-          <button mat-menu-item (click)="login()">
-            <mat-icon>login</mat-icon>
-            <span>ログイン</span>
-          </button>
-        }
-      </mat-menu>
-    </mat-toolbar>
+    <app-header></app-header>
 
     <main class="pt-4">
       <router-outlet />
