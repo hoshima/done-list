@@ -1,17 +1,17 @@
 import { Injectable, inject } from '@angular/core';
-import { TasksRepository } from '../states/tasks.repository';
+import { FirestoreService } from './firestore.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExternalFileService {
-  #tasksRepository = inject(TasksRepository);
+  readonly #firestoreService = inject(FirestoreService);
 
   /**
    * タスクをjsonとしてエクスポートする
    */
-  exportTasksToJson() {
-    const tasks = this.#tasksRepository.getAllTasks();
+  async exportTasksToJson() {
+    const tasks = await this.#firestoreService.getAllTasks();
     const jsonString = JSON.stringify(tasks, undefined, 2);
 
     const a = document.createElement('a');

@@ -8,6 +8,7 @@ import {
   doc,
   Firestore,
   getDoc,
+  getDocs,
   orderBy,
   query,
   updateDoc,
@@ -52,6 +53,28 @@ export class FirestoreService {
     const taskSnap = await getDoc(taskRef);
 
     return { ...taskSnap.data(), id } as Task;
+  }
+
+  async getAllTasks() {
+    const user = this.#authService.user();
+    if (!user) return;
+
+    const q = query(
+      this.tasksCollection,
+      where('uid', '==', user.uid ?? ''),
+      orderBy('date', 'desc'),
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    return querySnapshot.docs.map((x) => {
+      const data = x.data() as Task;
+      return {
+        date: data.date,
+        description: data.description,
+        name: data.name,
+      };
+    });
   }
 
   async addTask(task: CreateListItem) {
