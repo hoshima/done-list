@@ -44,6 +44,7 @@ export default class ListPageComponent {
     this.#dialog
       .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
         data: { ...item, id },
+        panelClass: ['w-10/12', 'md:w-4/12'],
       })
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
@@ -52,7 +53,9 @@ export default class ListPageComponent {
 
   openAddDialog() {
     this.#dialog
-      .open<TaskFormComponent, null, CreateListItem>(TaskFormComponent)
+      .open<TaskFormComponent, null, CreateListItem>(TaskFormComponent, {
+        panelClass: ['w-10/12', 'md:w-4/12'],
+      })
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
       .subscribe((task) => this.#firestoreService.addTask(task));
