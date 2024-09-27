@@ -16,7 +16,6 @@
         <div class="flex-none">
           <button
             mat-icon-button
-            color="primary"
             aria-label="編集"
             (click)="clickEditItem(task.id)"
           >
@@ -26,8 +25,8 @@
         <div class="flex-none">
           <button
             mat-icon-button
-            color="warn"
             aria-label="削除"
+            class="!text-red-500"
             (click)="clickDeleteItem(task.id, task.name)"
           >
             <mat-icon>delete</mat-icon>
