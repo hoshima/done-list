@@ -46,14 +46,14 @@ export class TaskFormComponent {
   add = output<CreateListItem>();
 
   id = model<string>();
-  name = model<string>();
+  title = model<string>();
   date = model<string>(cdate().format('YYYY-MM-DD'));
   description = model<string>();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: ListItem) {
     if (data) {
       this.id.set(data.id);
-      this.name.set(data.name);
+      this.title.set(data.name);
       this.date.set(data.date);
       this.description.set(data.description);
     }
@@ -62,7 +62,7 @@ export class TaskFormComponent {
   clickEditButton() {
     this.dialogRef.close({
       id: this.id(),
-      name: this.name(),
+      name: this.title(),
       date: this.date(),
       description: this.description(),
     });
@@ -70,7 +70,7 @@ export class TaskFormComponent {
 
   clickAddButton() {
     this.dialogRef.close({
-      name: this.name(),
+      name: this.title(),
       date: this.date(),
       description: this.description(),
     });
