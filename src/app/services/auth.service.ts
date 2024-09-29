@@ -6,6 +6,7 @@ import {
   signInWithPopup,
   signOut,
   user,
+  UserCredential,
 } from '@angular/fire/auth';
 
 @Injectable({
@@ -24,9 +25,9 @@ export class AuthService {
     return !!this.user();
   }
 
-  async login() {
+  async login(): Promise<UserCredential> {
     const provider = new GoogleAuthProvider();
-    await signInWithPopup(this.auth, provider);
+    return signInWithPopup(this.auth, provider);
   }
 
   async logout() {

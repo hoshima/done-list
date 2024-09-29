@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, DestroyRef, inject, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
@@ -6,6 +6,10 @@ import { UiRepository } from './states/ui.repository';
 import { AsyncPipe } from '@angular/common';
 import { AuthService } from './services/auth.service';
 import { HeaderComponent } from './components/header/header.component';
+import { delay } from 'rxjs';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatDialog } from '@angular/material/dialog';
+import { LoginDialogComponent } from './components/login-dialog/login-dialog.component';
 
 @Component({
   selector: 'app-root',
@@ -22,17 +26,20 @@ import { HeaderComponent } from './components/header/header.component';
   host: { class: 'block h-svh' },
 })
 export class AppComponent implements OnInit {
+  #destroyRef = inject(DestroyRef);
+  #dialog = inject(MatDialog);
   uiRepository = inject(UiRepository);
   authService = inject(AuthService);
 
   drawerOpened$ = this.uiRepository.drawerOpened$;
 
-  async ngOnInit(): Promise<void> {
-    setTimeout(async () => {
-      const isLoggedIn = await this.authService.isLoggedIn();
-      if (!isLoggedIn) {
-        alert('ログインしてください');
-      }
-    }, 1000);
+  ngOnInit(): void {
+    this.authService.user$
+      .pipe(takeUntilDestroyed(this.#destroyRef), delay(1000))
+      .subscribe((user) => {
+        if (!user) {
+          this.#dialog.open(LoginDialogComponent);
+        }
+      });
   }
 }
