@@ -4,8 +4,13 @@
   </button>
   <span>Done List</span></mat-toolbar
 >
-<mat-action-list role="list" class="w-48">
-  <button mat-list-item role="listitem" (click)="onExport()">
-    エクスポート
-  </button>
+<mat-action-list>
+  <button mat-list-item (click)="onExport()">エクスポート</button>
+
+  <mat-divider></mat-divider>
+
+  <a mat-list-item target="_blank" href="https://github.com/hoshima">
+    <span matListItemTitle>hoshima</span>
+    <span matListItemLine>developer</span>
+  </a>
 </mat-action-list>
