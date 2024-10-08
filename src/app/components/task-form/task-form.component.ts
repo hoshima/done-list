@@ -1,4 +1,11 @@
-import { Component, Inject, inject, model, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Inject,
+  inject,
+  model,
+  output,
+} from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import {
@@ -39,6 +46,7 @@ import {
       display: block;
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFormComponent {
   dialogRef = inject(MatDialogRef<TaskFormComponent>);

@@ -1,4 +1,9 @@
-import { Component, inject, output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  output,
+} from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
@@ -15,6 +20,7 @@ import { FirestoreService } from '../../services/firestore.service';
       display: block;
     }
   `,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
   readonly #firestoreService = inject(FirestoreService);

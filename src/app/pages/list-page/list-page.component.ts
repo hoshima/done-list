@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
 import { CreateListItem, ListItem } from '../../interfaces/list-item';
 import { MatFabButton } from '@angular/material/button';
@@ -19,6 +19,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   host: {
     class: 'block container mx-auto',
   },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);

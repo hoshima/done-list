@@ -1,4 +1,10 @@
-import { Component, DestroyRef, inject, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DestroyRef,
+  inject,
+  OnInit,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
@@ -24,6 +30,7 @@ import { LoginDialogComponent } from './components/login-dialog/login-dialog.com
   templateUrl: './app.component.html',
   // eslint-disable-next-line @angular-eslint/no-host-metadata-property
   host: { class: 'block h-svh' },
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class AppComponent implements OnInit {
   #destroyRef = inject(DestroyRef);

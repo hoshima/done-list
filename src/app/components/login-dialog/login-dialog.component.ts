@@ -1,5 +1,5 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import {
   MatDialogContent,
   MatDialogRef,
@@ -13,6 +13,7 @@ import { AuthService } from '../../services/auth.service';
   imports: [MatDialogTitle, MatDialogContent, NgOptimizedImage],
   templateUrl: './login-dialog.component.html',
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class LoginDialogComponent {
   #dialogRef = inject(MatDialogRef<LoginDialogComponent>);

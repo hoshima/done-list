@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import {
@@ -27,6 +27,7 @@ import { MatDivider } from '@angular/material/divider';
   ],
   templateUrl: './side-menu.component.html',
   styles: ``,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class SideMenuComponent {
   uiRepository = inject(UiRepository);
