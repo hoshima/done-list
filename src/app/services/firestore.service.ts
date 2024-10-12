@@ -1,4 +1,4 @@
-import { effect, inject, Injectable, signal } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import {
   addDoc,
   collection,
@@ -25,27 +25,18 @@ import { Observable } from 'rxjs';
 export class FirestoreService {
   readonly #firestore = inject(Firestore);
   readonly #authService = inject(AuthService);
+
   tasksCollection: CollectionReference = collection(this.#firestore, 'tasks');
-  tasks = signal<Task[]>([]);
 
-  constructor() {
-    effect(() => {
-      const user = this.#authService.user();
-      if (!user) return;
-
-      (
-        collectionData(
-          query(
-            this.tasksCollection,
-            where('uid', '==', user.uid ?? ''),
-            orderBy('date', 'desc'),
-          ),
-          { idField: 'id' },
-        ) as Observable<Task[]>
-      ).subscribe((x) => {
-        this.tasks.set(x);
-      });
-    });
+  tasks(uid: string) {
+    return collectionData(
+      query(
+        this.tasksCollection,
+        where('uid', '==', uid ?? ''),
+        orderBy('date', 'desc'),
+      ),
+      { idField: 'id' },
+    ) as Observable<Task[]>;
   }
 
   async getTaskData(id: string) {
