@@ -7,4 +7,8 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/list-page/list-page.component'),
     resolve: { user: loginUserResolver },
   },
+  {
+    path: 'login',
+    loadComponent: () => import('./pages/login/login.component'),
+  },
 ];
