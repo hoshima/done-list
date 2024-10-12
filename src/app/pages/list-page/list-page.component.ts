@@ -9,6 +9,8 @@ import { filter } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
 import { FirestoreService } from '../../services/firestore.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ActivatedRoute } from '@angular/router';
+import { User } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-list-page',
@@ -25,6 +27,13 @@ export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
   readonly #snackBar = inject(MatSnackBar);
   readonly #firestoreService = inject(FirestoreService);
+  readonly #activatedRoute = inject(ActivatedRoute);
+
+  user: User;
+
+  constructor() {
+    this.user = this.#activatedRoute.snapshot.data['user'];
+  }
 
   onDeleteItem([id, name]: [string, string]) {
     if (!confirm(`${name}を削除しますか？`)) {
@@ -59,6 +68,6 @@ export default class ListPageComponent {
       })
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
-      .subscribe((task) => this.#firestoreService.addTask(task));
+      .subscribe((task) => this.#firestoreService.addTask(this.user.uid, task));
   }
 }

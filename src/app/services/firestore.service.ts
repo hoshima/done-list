@@ -77,12 +77,9 @@ export class FirestoreService {
     });
   }
 
-  async addTask(task: CreateListItem) {
-    const user = this.#authService.gerUser();
-    if (!user) return;
-
+  async addTask(uid: string, task: CreateListItem) {
     await addDoc(this.tasksCollection, {
-      uid: user.uid,
+      uid: uid,
       name: task.name,
       date: task.date,
       description: task.description ?? '',
