@@ -12,6 +12,7 @@ import {
   provideAppCheck,
   ReCaptchaEnterpriseProvider,
 } from '@angular/fire/app-check';
+import { provideClientHydration } from '@angular/platform-browser';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -37,5 +38,6 @@ export const appConfig: ApplicationConfig = {
         isTokenAutoRefreshEnabled: true,
       });
     }),
+    provideClientHydration(),
   ],
 };
