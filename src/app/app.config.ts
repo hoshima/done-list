@@ -14,6 +14,11 @@ import {
 } from '@angular/fire/app-check';
 import { provideClientHydration } from '@angular/platform-browser';
 
+declare global {
+  // eslint-disable-next-line no-var
+  var FIREBASE_APPCHECK_DEBUG_TOKEN: boolean | string | undefined;
+}
+
 export const appConfig: ApplicationConfig = {
   providers: [
     provideRouter(routes),
@@ -27,8 +32,9 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideAppCheck(() => {
       if (isDevMode()) {
+        // https://github.com/angular/angularfire/issues/3488 & https://stackoverflow.com/a/71627345
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        (self as any).FIREBASE_APPCHECK_DEBUG_TOKEN = true;
+        globalThis.FIREBASE_APPCHECK_DEBUG_TOKEN = true;
       }
       const provider = new ReCaptchaEnterpriseProvider(
         environment.reCAPTCHA.siteKey,
