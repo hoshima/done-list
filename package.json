@@ -11,7 +11,8 @@
     "fix": "eslint --cache --fix src/ && prettier --write src/",
     "i18n": "ng extract-i18n --format=json --output-path src/locale",
     "deploy": "ng deploy",
-    "deploy:stop": "firebase hosting:disable"
+    "deploy:stop": "firebase hosting:disable",
+    "apphosting:delete": "firebase apphosting:backends:delete -l asia-east1 done-list"
   },
   "private": true,
   "dependencies": {
