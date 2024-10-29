@@ -14,6 +14,12 @@
 // that you are using.
 :root {
   @include mat.all-component-themes(m3-theme.$light-theme);
+
+  @media (prefers-color-scheme: dark) {
+    // Use the `-color` mixins to only apply color styles without reapplying the same
+    // typography and density styles.
+    @include mat.all-component-colors(m3-theme.$dark-theme);
+  }
 }
 
 // Comment out the line below if you want to use the pre-defined typography utility classes.
