@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
-import { CreateListItem, ListItem } from '../../interfaces/list-item';
+import { ListItemCreate, ListItem } from '../../types/list-item.type';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -63,7 +63,7 @@ export default class ListPageComponent {
 
   openAddDialog() {
     this.#dialog
-      .open<TaskFormComponent, null, CreateListItem>(TaskFormComponent, {
+      .open<TaskFormComponent, null, ListItemCreate>(TaskFormComponent, {
         panelClass: ['w-10/12', 'md:w-4/12'],
       })
       .afterClosed()

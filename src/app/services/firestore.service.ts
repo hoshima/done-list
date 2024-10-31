@@ -15,7 +15,7 @@ import {
   where,
 } from '@angular/fire/firestore';
 import { Task, TaskCreate } from '../types/task.type';
-import { CreateListItem, ListItem } from '../interfaces/list-item';
+import { ListItemCreate, ListItem } from '../types/list-item.type';
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs';
 
@@ -68,7 +68,7 @@ export class FirestoreService {
     });
   }
 
-  async addTask(uid: string, task: CreateListItem) {
+  async addTask(uid: string, task: ListItemCreate) {
     await addDoc(this.tasksCollection, {
       uid: uid,
       name: task.name,

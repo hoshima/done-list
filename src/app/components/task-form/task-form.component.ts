@@ -7,7 +7,7 @@ import {
   output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { CreateListItem, ListItem } from '../../interfaces/list-item';
+import { ListItemCreate, ListItem } from '../../types/list-item.type';
 import {
   MatError,
   MatFormField,
@@ -51,7 +51,7 @@ import {
 export class TaskFormComponent {
   dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
-  add = output<CreateListItem>();
+  add = output<ListItemCreate>();
 
   id = model<string>();
   title = model<string>();
