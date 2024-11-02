@@ -3,11 +3,12 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { AuthComponent } from '../../components/auth/auth.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [NgOptimizedImage],
+  imports: [NgOptimizedImage, AuthComponent],
   templateUrl: './login.component.html',
   host: {
     class: 'block container mx-auto',
