@@ -37,6 +37,10 @@ export class SupabaseService {
     return this._session;
   }
 
+  get sessionAsync() {
+    return this.supabase.auth.getSession();
+  }
+
   profile(user: User) {
     return this.supabase
       .from('profiles')
