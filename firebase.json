@@ -1,9 +1,0 @@
-{
-  "hosting": [
-    {
-      "target": "done-list",
-      "source": ".",
-      "frameworksBackend": {}
-    }
-  ]
-}

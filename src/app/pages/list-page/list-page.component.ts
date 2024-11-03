@@ -7,10 +7,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { filter } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { ActivatedRoute } from '@angular/router';
-import { User } from '@angular/fire/auth';
 import { SupabaseService } from '../../services/supabase.service';
-import { UserId } from '../../types/branded.type';
 
 @Component({
   selector: 'app-list-page',
@@ -25,14 +22,7 @@ import { UserId } from '../../types/branded.type';
 })
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
-  readonly #activatedRoute = inject(ActivatedRoute);
   readonly #supabaseService = inject(SupabaseService);
-
-  user: User;
-
-  constructor() {
-    this.user = this.#activatedRoute.snapshot.data['user'];
-  }
 
   openAddDialog() {
     this.#dialog
@@ -42,7 +32,7 @@ export default class ListPageComponent {
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
       .subscribe(async (task) => {
-        await this.#supabaseService.addTask(this.user.uid as UserId, task);
+        await this.#supabaseService.addTask(task);
       });
   }
 }

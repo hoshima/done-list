@@ -77,7 +77,7 @@ export class SupabaseService {
     return this.supabase.from('tasks').select().eq('id', taskId).single();
   }
 
-  addTask(userId: UserId, task: TablesInsert<'tasks'>) {
+  addTask(task: TablesInsert<'tasks'>) {
     return this.supabase.from('tasks').insert(task);
   }
 

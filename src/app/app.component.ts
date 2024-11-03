@@ -4,7 +4,6 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { SideMenuComponent } from './components/side-menu/side-menu.component';
 import { UiRepository } from './states/ui.repository';
 import { AsyncPipe } from '@angular/common';
-import { AuthService } from './services/auth.service';
 import { HeaderComponent } from './components/header/header.component';
 
 @Component({
@@ -24,7 +23,6 @@ import { HeaderComponent } from './components/header/header.component';
 })
 export class AppComponent {
   uiRepository = inject(UiRepository);
-  authService = inject(AuthService);
 
   drawerOpened$ = this.uiRepository.drawerOpened$;
 }
