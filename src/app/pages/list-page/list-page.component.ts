@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
-import { ListItemCreate, ListItem } from '../../types/list-item.type';
+import { ListItemCreate } from '../../types/list-item.type';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -44,23 +44,6 @@ export default class ListPageComponent {
 
     this.#firestoreService.deleteTask(id);
     this.#snackBar.open(`${name}を削除しました`);
-  }
-
-  async onEditItem(id: string) {
-    const item = await this.#firestoreService.getTaskData(id);
-    if (!item) {
-      this.#snackBar.open(`アイテムが存在しません`);
-      return;
-    }
-
-    this.#dialog
-      .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
-        data: { ...item, id },
-        panelClass: ['w-10/12', 'md:w-4/12'],
-      })
-      .afterClosed()
-      .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
-      .subscribe((task) => this.#firestoreService.updateTask(task.id, task));
   }
 
   openAddDialog() {

@@ -13,6 +13,11 @@ import { MatIcon } from '@angular/material/icon';
 import { ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '../../services/supabase.service';
 import { Session } from '@supabase/supabase-js';
+import { MatDialog } from '@angular/material/dialog';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { filter } from 'rxjs';
+import { ListItem } from '../../types/list-item.type';
+import { TaskFormComponent } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-list',
@@ -38,6 +43,8 @@ export class ListComponent implements OnInit {
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #supabaseService = inject(SupabaseService);
   readonly #cd = inject(ChangeDetectorRef);
+  readonly #dialog = inject(MatDialog);
+  readonly #snackBar = inject(MatSnackBar);
 
   tasks:
     | {
@@ -54,11 +61,25 @@ export class ListComponent implements OnInit {
     this.#cd.detectChanges();
   }
 
-  editItem = output<string>();
   deleteItem = output<[string, string]>();
 
-  clickEditItem(id: string) {
-    this.editItem.emit(id);
+  async clickEditItem(id: string) {
+    const item = await this.#supabaseService.getTask(id);
+    if (!item) {
+      this.#snackBar.open(`アイテムが存在しません`);
+      return;
+    }
+
+    this.#dialog
+      .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
+        data: { ...item.data, id },
+        panelClass: ['w-10/12', 'md:w-4/12'],
+      })
+      .afterClosed()
+      .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
+      .subscribe(async (task) => {
+        await this.#supabaseService.updateTask(task.id, task);
+      });
   }
 
   clickDeleteItem(id: string, name: string) {

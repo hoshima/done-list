@@ -9,6 +9,7 @@ import {
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { filter, from, map } from 'rxjs';
+import { ListItem, ListItemCreate } from '../types/list-item.type';
 
 export interface Profile {
   id?: string;
@@ -78,8 +79,19 @@ export class SupabaseService {
     return this.supabase.auth.signOut();
   }
 
+  getTask(id: string) {
+    return this.supabase.from('tasks').select().eq('id', id).single();
+  }
+
   addTask(userId: string, task: ListItemCreate) {
     return this.supabase.from('tasks').insert(task);
+  }
+
+  updateTask(id: string, task: ListItem) {
+    return this.supabase
+      .from('tasks')
+      .update({ ...task, updated_at: new Date() })
+      .eq('id', id);
   }
 
   updateProfile(profile: Profile) {
