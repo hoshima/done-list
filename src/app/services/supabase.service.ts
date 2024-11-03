@@ -78,6 +78,10 @@ export class SupabaseService {
     return this.supabase.auth.signOut();
   }
 
+  addTask(userId: string, task: ListItemCreate) {
+    return this.supabase.from('tasks').insert(task);
+  }
+
   updateProfile(profile: Profile) {
     const update = {
       ...profile,

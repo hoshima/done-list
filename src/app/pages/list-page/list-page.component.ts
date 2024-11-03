@@ -11,6 +11,7 @@ import { FirestoreService } from '../../services/firestore.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@angular/fire/auth';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-list-page',
@@ -28,6 +29,7 @@ export default class ListPageComponent {
   readonly #snackBar = inject(MatSnackBar);
   readonly #firestoreService = inject(FirestoreService);
   readonly #activatedRoute = inject(ActivatedRoute);
+  readonly #supabaseService = inject(SupabaseService);
 
   user: User;
 
@@ -68,6 +70,8 @@ export default class ListPageComponent {
       })
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
-      .subscribe((task) => this.#firestoreService.addTask(this.user.uid, task));
+      .subscribe(async (task) => {
+        await this.#supabaseService.addTask(this.user.uid, task);
+      });
   }
 }
