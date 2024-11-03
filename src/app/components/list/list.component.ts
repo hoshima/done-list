@@ -18,6 +18,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs';
 import { ListItem } from '../../types/list-item.type';
 import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskId, UserId } from '../../types/branded.type';
 
 @Component({
   selector: 'app-list',
@@ -48,7 +49,7 @@ export class ListComponent implements OnInit {
 
   tasks:
     | {
-        id: string;
+        id: TaskId;
         name: string;
         date: string;
         description: string;
@@ -57,13 +58,15 @@ export class ListComponent implements OnInit {
 
   async ngOnInit(): Promise<void> {
     const session: Session = this.#activatedRoute.snapshot.data['user'];
-    this.tasks = (await this.#supabaseService.tasks(session.user.id)).data;
+    this.tasks = (
+      await this.#supabaseService.tasks(session.user.id as UserId)
+    ).data;
     this.#cd.detectChanges();
   }
 
   deleteItem = output<[string, string]>();
 
-  async clickEditItem(id: string) {
+  async clickEditItem(id: TaskId) {
     const item = await this.#supabaseService.getTask(id);
     if (!item) {
       this.#snackBar.open(`アイテムが存在しません`);
@@ -78,11 +81,11 @@ export class ListComponent implements OnInit {
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
       .subscribe(async (task) => {
-        await this.#supabaseService.updateTask(task.id, task);
+        await this.#supabaseService.updateTask(task.id as TaskId, task);
       });
   }
 
-  async clickDeleteItem(id: string, name: string) {
+  async clickDeleteItem(id: TaskId, name: string) {
     if (!confirm(`${name}を削除しますか？`)) {
       return;
     }

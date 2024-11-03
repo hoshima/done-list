@@ -10,6 +10,7 @@ import {
 import { environment } from '../../environments/environment';
 import { filter, from, map } from 'rxjs';
 import { ListItem, ListItemCreate } from '../types/list-item.type';
+import { TaskId, UserId } from '../types/branded.type';
 
 @Injectable({
   providedIn: 'root',
@@ -51,7 +52,7 @@ export class SupabaseService {
       .single();
   }
 
-  tasks(userId: string) {
+  tasks(userId: UserId) {
     return this.supabase
       .from('tasks')
       .select(`id, name, date, description`)
@@ -72,22 +73,22 @@ export class SupabaseService {
     return this.supabase.auth.signOut();
   }
 
-  getTask(id: string) {
-    return this.supabase.from('tasks').select().eq('id', id).single();
+  getTask(taskId: TaskId) {
+    return this.supabase.from('tasks').select().eq('id', taskId).single();
   }
 
-  addTask(userId: string, task: ListItemCreate) {
+  addTask(userId: UserId, task: ListItemCreate) {
     return this.supabase.from('tasks').insert(task);
   }
 
-  updateTask(id: string, task: ListItem) {
+  updateTask(taskId: TaskId, task: ListItem) {
     return this.supabase
       .from('tasks')
       .update({ ...task, updated_at: new Date() })
-      .eq('id', id);
+      .eq('id', taskId);
   }
 
-  deleteTask(id: string) {
+  deleteTask(id: TaskId) {
     return this.supabase.from('tasks').delete().eq('id', id);
   }
 }

@@ -12,6 +12,7 @@ import { UiRepository } from '../../states/ui.repository';
 import { ExternalFileService } from '../../services/external-file.service';
 import { MatDivider } from '@angular/material/divider';
 import { SupabaseService } from '../../services/supabase.service';
+import { UserId } from '../../types/branded.type';
 
 @Component({
   selector: 'app-side-menu',
@@ -44,6 +45,8 @@ export class SideMenuComponent {
     if (!session.data.session) {
       return;
     }
-    this.externalFileService.exportTasksToJson(session.data.session.user.id);
+    this.externalFileService.exportTasksToJson(
+      session.data.session.user.id as UserId,
+    );
   }
 }

@@ -10,6 +10,7 @@ import { AsyncPipe } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@angular/fire/auth';
 import { SupabaseService } from '../../services/supabase.service';
+import { UserId } from '../../types/branded.type';
 
 @Component({
   selector: 'app-list-page',
@@ -41,7 +42,7 @@ export default class ListPageComponent {
       .afterClosed()
       .pipe(filter((x): x is Exclude<typeof x, undefined> => x != null))
       .subscribe(async (task) => {
-        await this.#supabaseService.addTask(this.user.uid, task);
+        await this.#supabaseService.addTask(this.user.uid as UserId, task);
       });
   }
 }
