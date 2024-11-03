@@ -11,13 +11,6 @@ import { environment } from '../../environments/environment';
 import { filter, from, map } from 'rxjs';
 import { ListItem, ListItemCreate } from '../types/list-item.type';
 
-export interface Profile {
-  id?: string;
-  username: string;
-  website: string;
-  avatar_url: string;
-}
-
 @Injectable({
   providedIn: 'root',
 })
@@ -96,22 +89,5 @@ export class SupabaseService {
 
   deleteTask(id: string) {
     return this.supabase.from('tasks').delete().eq('id', id);
-  }
-
-  updateProfile(profile: Profile) {
-    const update = {
-      ...profile,
-      updated_at: new Date(),
-    };
-
-    return this.supabase.from('profiles').upsert(update);
-  }
-
-  downLoadImage(path: string) {
-    return this.supabase.storage.from('avatars').download(path);
-  }
-
-  uploadAvatar(filePath: string, file: File) {
-    return this.supabase.storage.from('avatars').upload(filePath, file);
   }
 }
