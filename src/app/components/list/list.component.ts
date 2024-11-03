@@ -16,9 +16,9 @@ import { Session } from '@supabase/supabase-js';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs';
-import { ListItem } from '../../types/list-item.type';
 import { TaskFormComponent } from '../task-form/task-form.component';
 import { TaskId, UserId } from '../../types/branded.type';
+import { Tables } from '../../types/database.types';
 
 @Component({
   selector: 'app-list',
@@ -48,12 +48,7 @@ export class ListComponent implements OnInit {
   readonly #snackBar = inject(MatSnackBar);
 
   tasks:
-    | {
-        id: TaskId;
-        name: string;
-        date: string;
-        description: string;
-      }[]
+    | Pick<Tables<'tasks'>, 'id' | 'name' | 'date' | 'description'>[]
     | null = null;
 
   async ngOnInit(): Promise<void> {
@@ -67,15 +62,19 @@ export class ListComponent implements OnInit {
   deleteItem = output<[string, string]>();
 
   async clickEditItem(id: TaskId) {
-    const item = await this.#supabaseService.getTask(id);
+    const { data: item } = await this.#supabaseService.getTask(id);
     if (!item) {
       this.#snackBar.open(`アイテムが存在しません`);
       return;
     }
 
     this.#dialog
-      .open<TaskFormComponent, ListItem, ListItem>(TaskFormComponent, {
-        data: { ...item.data, id },
+      .open<
+        TaskFormComponent,
+        Tables<'tasks'>,
+        Pick<Tables<'tasks'>, 'id' | 'name' | 'date' | 'description'>
+      >(TaskFormComponent, {
+        data: { ...item, id },
         panelClass: ['w-10/12', 'md:w-4/12'],
       })
       .afterClosed()
@@ -85,8 +84,8 @@ export class ListComponent implements OnInit {
       });
   }
 
-  async clickDeleteItem(id: TaskId, name: string) {
-    if (!confirm(`${name}を削除しますか？`)) {
+  async clickDeleteItem(id: TaskId, name: string | null) {
+    if (!confirm(`${name ?? 'タイトル未設定'}を削除しますか？`)) {
       return;
     }
 

@@ -9,14 +9,14 @@ import {
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { filter, from, map } from 'rxjs';
-import { ListItem, ListItemCreate } from '../types/list-item.type';
+import { Database, TablesInsert, TablesUpdate } from '../types/database.types';
 import { TaskId, UserId } from '../types/branded.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class SupabaseService {
-  private supabase: SupabaseClient;
+  private supabase: SupabaseClient<Database>;
   _session: AuthSession | null = null;
 
   constructor() {
@@ -77,14 +77,18 @@ export class SupabaseService {
     return this.supabase.from('tasks').select().eq('id', taskId).single();
   }
 
-  addTask(userId: UserId, task: ListItemCreate) {
+  addTask(userId: UserId, task: TablesInsert<'tasks'>) {
     return this.supabase.from('tasks').insert(task);
   }
 
-  updateTask(taskId: TaskId, task: ListItem) {
+  updateTask(taskId: TaskId, task: TablesUpdate<'tasks'>) {
     return this.supabase
       .from('tasks')
-      .update({ ...task, updated_at: new Date() })
+      .update({
+        ...task,
+        id: task.id as TaskId,
+        updated_at: new Date().toISOString(),
+      })
       .eq('id', taskId);
   }
 
