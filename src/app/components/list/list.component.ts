@@ -1,6 +1,5 @@
 import {
   ChangeDetectionStrategy,
-  ChangeDetectorRef,
   Component,
   inject,
   OnInit,
@@ -43,20 +42,15 @@ import { Tables } from '../../types/database.types';
 export class ListComponent implements OnInit {
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #supabaseService = inject(SupabaseService);
-  readonly #cd = inject(ChangeDetectorRef);
   readonly #dialog = inject(MatDialog);
   readonly #snackBar = inject(MatSnackBar);
 
-  tasks:
-    | Pick<Tables<'tasks'>, 'id' | 'name' | 'date' | 'description'>[]
-    | null = null;
+  tasks = this.#supabaseService.tasksSignal;
 
   async ngOnInit(): Promise<void> {
     const session: Session = this.#activatedRoute.snapshot.data['user'];
-    this.tasks = (
-      await this.#supabaseService.tasks(session.user.id as UserId)
-    ).data;
-    this.#cd.detectChanges();
+    const tasks = await this.#supabaseService.tasks(session.user.id as UserId);
+    this.#supabaseService.tasksSignal.set(tasks.data);
   }
 
   deleteItem = output<[string, string]>();

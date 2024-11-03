@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 import {
   AuthChangeEvent,
   AuthSession,
@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
 import { filter, from, map } from 'rxjs';
 import { Database, TablesInsert, TablesUpdate } from '../types/database.types';
 import { TaskId, UserId } from '../types/branded.type';
+import { Task } from '../types/task.type';
 
 @Injectable({
   providedIn: 'root',
@@ -18,12 +19,32 @@ import { TaskId, UserId } from '../types/branded.type';
 export class SupabaseService {
   private supabase: SupabaseClient<Database>;
   _session: AuthSession | null = null;
+  tasksSignal = signal<Task[] | null>(null);
 
   constructor() {
     this.supabase = createClient(
       environment.supabase.supabaseUrl,
       environment.supabase.supabaseKey,
     );
+
+    this.supabase
+      .channel('tasks_edited')
+      .on(
+        'postgres_changes',
+        { event: '*', schema: 'public', table: 'tasks' },
+        async () => {
+          const { data } = await this.sessionAsync;
+          if (!data.session) {
+            return;
+          }
+
+          const { data: tasks } = await this.tasks(
+            data.session.user.id as UserId,
+          );
+          this.tasksSignal.set(tasks);
+        },
+      )
+      .subscribe();
   }
 
   get session() {
