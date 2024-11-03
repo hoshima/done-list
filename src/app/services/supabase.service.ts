@@ -57,6 +57,13 @@ export class SupabaseService {
       .single();
   }
 
+  tasks(userId: string) {
+    return this.supabase
+      .from('tasks')
+      .select(`id, name, date, description`)
+      .eq('user_id', userId);
+  }
+
   authChanges(
     callback: (event: AuthChangeEvent, session: Session | null) => void,
   ) {

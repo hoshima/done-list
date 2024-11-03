@@ -1,18 +1,18 @@
 import {
   ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   inject,
+  OnInit,
   output,
 } from '@angular/core';
-import { AsyncPipe, DatePipe } from '@angular/common';
+import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { FirestoreService } from '../../services/firestore.service';
 import { ActivatedRoute } from '@angular/router';
-import { Observable } from 'rxjs';
-import { Task } from '../../types/task.type';
-import { User } from '@angular/fire/auth';
+import { SupabaseService } from '../../services/supabase.service';
+import { Session } from '@supabase/supabase-js';
 
 @Component({
   selector: 'app-list',
@@ -24,6 +24,7 @@ import { User } from '@angular/fire/auth';
     MatIconButton,
     MatIcon,
     AsyncPipe,
+    JsonPipe,
   ],
   templateUrl: './list.component.html',
   styles: `
@@ -33,15 +34,24 @@ import { User } from '@angular/fire/auth';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent {
-  readonly #firestoreService = inject(FirestoreService);
+export class ListComponent implements OnInit {
   readonly #activatedRoute = inject(ActivatedRoute);
+  readonly #supabaseService = inject(SupabaseService);
+  readonly #cd = inject(ChangeDetectorRef);
 
-  tasks: Observable<Task[]> | null = null;
+  tasks:
+    | {
+        id: string;
+        name: string;
+        date: string;
+        description: string;
+      }[]
+    | null = null;
 
-  constructor() {
-    const user: User = this.#activatedRoute.snapshot.data['user'];
-    this.tasks = this.#firestoreService.tasks(user.uid);
+  async ngOnInit(): Promise<void> {
+    const session: Session = this.#activatedRoute.snapshot.data['user'];
+    this.tasks = (await this.#supabaseService.tasks(session.user.id)).data;
+    this.#cd.detectChanges();
   }
 
   editItem = output<string>();
