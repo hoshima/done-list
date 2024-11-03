@@ -8,6 +8,7 @@ import {
   User,
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
+import { filter, from, map } from 'rxjs';
 
 export interface Profile {
   id?: string;
@@ -39,6 +40,13 @@ export class SupabaseService {
 
   get sessionAsync() {
     return this.supabase.auth.getSession();
+  }
+
+  get session$() {
+    return from(this.supabase.auth.getSession()).pipe(
+      filter((x) => !x.error),
+      map((x) => x.data.session),
+    );
   }
 
   profile(user: User) {
