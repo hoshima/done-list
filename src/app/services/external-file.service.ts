@@ -1,17 +1,17 @@
 import { Injectable, inject } from '@angular/core';
-import { FirestoreService } from './firestore.service';
+import { SupabaseService } from './supabase.service';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ExternalFileService {
-  readonly #firestoreService = inject(FirestoreService);
+  readonly #supabaseService = inject(SupabaseService);
 
   /**
    * タスクをjsonとしてエクスポートする
    */
-  async exportTasksToJson() {
-    const tasks = await this.#firestoreService.getAllTasks();
+  async exportTasksToJson(userId: string) {
+    const tasks = (await this.#supabaseService.tasks(userId)).data;
     const jsonString = JSON.stringify(tasks, undefined, 2);
 
     const a = document.createElement('a');
