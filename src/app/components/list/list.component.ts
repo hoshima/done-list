@@ -3,7 +3,6 @@ import {
   Component,
   inject,
   OnInit,
-  output,
 } from '@angular/core';
 import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
@@ -52,8 +51,6 @@ export class ListComponent implements OnInit {
     const tasks = await this.#supabaseService.tasks(session.user.id as UserId);
     this.#supabaseService.tasksSignal.set(tasks.data);
   }
-
-  deleteItem = output<[string, string]>();
 
   async clickEditItem(id: TaskId) {
     const { data: item } = await this.#supabaseService.getTask(id);
