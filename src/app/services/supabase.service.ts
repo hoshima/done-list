@@ -94,6 +94,10 @@ export class SupabaseService {
       .eq('id', id);
   }
 
+  deleteTask(id: string) {
+    return this.supabase.from('tasks').delete().eq('id', id);
+  }
+
   updateProfile(profile: Profile) {
     const update = {
       ...profile,

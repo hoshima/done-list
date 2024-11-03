@@ -82,7 +82,13 @@ export class ListComponent implements OnInit {
       });
   }
 
-  clickDeleteItem(id: string, name: string) {
-    this.deleteItem.emit([id, name]);
+  async clickDeleteItem(id: string, name: string) {
+    if (!confirm(`${name}を削除しますか？`)) {
+      return;
+    }
+
+    await this.#supabaseService.deleteTask(id);
+
+    this.#snackBar.open(`${name}を削除しました`);
   }
 }

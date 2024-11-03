@@ -7,8 +7,6 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { filter } from 'rxjs';
 import { AsyncPipe } from '@angular/common';
-import { FirestoreService } from '../../services/firestore.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
 import { ActivatedRoute } from '@angular/router';
 import { User } from '@angular/fire/auth';
 import { SupabaseService } from '../../services/supabase.service';
@@ -26,8 +24,6 @@ import { SupabaseService } from '../../services/supabase.service';
 })
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
-  readonly #snackBar = inject(MatSnackBar);
-  readonly #firestoreService = inject(FirestoreService);
   readonly #activatedRoute = inject(ActivatedRoute);
   readonly #supabaseService = inject(SupabaseService);
 
@@ -35,15 +31,6 @@ export default class ListPageComponent {
 
   constructor() {
     this.user = this.#activatedRoute.snapshot.data['user'];
-  }
-
-  onDeleteItem([id, name]: [string, string]) {
-    if (!confirm(`${name}を削除しますか？`)) {
-      return;
-    }
-
-    this.#firestoreService.deleteTask(id);
-    this.#snackBar.open(`${name}を削除しました`);
   }
 
   openAddDialog() {
