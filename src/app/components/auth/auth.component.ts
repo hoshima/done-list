@@ -11,6 +11,7 @@ import { merge } from 'rxjs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -21,6 +22,7 @@ import { MatInputModule } from '@angular/material/input';
     FormsModule,
     ReactiveFormsModule,
     MatButtonModule,
+    RouterLink,
   ],
   templateUrl: './auth.component.html',
 })
