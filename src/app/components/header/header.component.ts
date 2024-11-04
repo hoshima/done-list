@@ -4,14 +4,16 @@ import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
 import { MatMenu, MatMenuItem, MatMenuTrigger } from '@angular/material/menu';
 import { MatToolbar } from '@angular/material/toolbar';
-import { AuthService } from '../../services/auth.service';
 import { UiRepository } from '../../states/ui.repository';
 import { MatIconButton } from '@angular/material/button';
+import { SupabaseService } from '../../services/supabase.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
   standalone: true,
   imports: [
+    RouterLink,
     MatToolbar,
     MatMenu,
     MatMenuItem,
@@ -27,19 +29,15 @@ import { MatIconButton } from '@angular/material/button';
 })
 export class HeaderComponent {
   uiRepository = inject(UiRepository);
-  authService = inject(AuthService);
+  supabaseService = inject(SupabaseService);
 
-  user$ = this.authService.user$;
+  session$ = this.supabaseService.session$;
 
   openDrawer() {
     this.uiRepository.openDrawer();
   }
 
-  async login() {
-    this.authService.login();
-  }
-
   async logout() {
-    this.authService.logout();
+    this.supabaseService.signOut();
   }
 }

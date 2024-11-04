@@ -11,6 +11,8 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { UiRepository } from '../../states/ui.repository';
 import { ExternalFileService } from '../../services/external-file.service';
 import { MatDivider } from '@angular/material/divider';
+import { SupabaseService } from '../../services/supabase.service';
+import { UserId } from '../../types/branded.type';
 
 @Component({
   selector: 'app-side-menu',
@@ -32,12 +34,19 @@ import { MatDivider } from '@angular/material/divider';
 export class SideMenuComponent {
   uiRepository = inject(UiRepository);
   externalFileService = inject(ExternalFileService);
+  #supabaseService = inject(SupabaseService);
 
   closeDrawer() {
     this.uiRepository.closeDrawer();
   }
 
-  onExport() {
-    this.externalFileService.exportTasksToJson();
+  async onExport() {
+    const session = await this.#supabaseService.sessionAsync;
+    if (!session.data.session) {
+      return;
+    }
+    this.externalFileService.exportTasksToJson(
+      session.data.session.user.id as UserId,
+    );
   }
 }
