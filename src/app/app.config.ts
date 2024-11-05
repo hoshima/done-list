@@ -1,4 +1,4 @@
-import { ApplicationConfig, Injectable } from '@angular/core';
+import { ApplicationConfig, Injectable, isDevMode } from '@angular/core';
 import {
   provideRouter,
   RouterStateSnapshot,
@@ -8,6 +8,7 @@ import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
 import { Title } from '@angular/platform-browser';
+import { provideServiceWorker } from '@angular/service-worker';
 
 @Injectable({ providedIn: 'root' })
 export class TemplatePageTitleStrategy extends TitleStrategy {
@@ -36,5 +37,9 @@ export const appConfig: ApplicationConfig = {
       useValue: { appearance: 'outline' },
     },
     { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
+    provideServiceWorker('ngsw-worker.js', {
+      enabled: !isDevMode(),
+      registrationStrategy: 'registerWhenStable:30000',
+    }),
   ],
 };
