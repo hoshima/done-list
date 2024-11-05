@@ -1,62 +1,60 @@
-<div class="w-fit mx-auto">
-  <h1>アカウント作成</h1>
+<div class="flex flex-col gap-4 items-center">
+  <h1 class="text-xl">アカウント作成</h1>
 
-  <div class="flex flex-col gap-4 items-center">
-    <form
-      class="flex flex-col gap-4 items-center w-full"
-      aria-live="polite"
-      [formGroup]="form"
+  <form
+    class="flex flex-col gap-4 items-center w-full"
+    aria-live="polite"
+    [formGroup]="form"
+  >
+    <mat-form-field class="!min-w-60">
+      <mat-label>メールアドレス</mat-label>
+      <input
+        id="email"
+        matInput
+        required
+        placeholder="user@example.com"
+        formControlName="email"
+        (blur)="updateEmailErrorMessage()"
+      />
+      @if (form.controls["email"].invalid) {
+        <mat-error>{{ emailErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>パスワード</mat-label>
+      <input
+        id="password"
+        matInput
+        formControlName="password"
+        minlength="8"
+        autocomplete="new-password"
+        [type]="hidePassword() ? 'password' : 'text'"
+        (blur)="updatePasswordErrorMessage()"
+      />
+      <button
+        mat-icon-button
+        matSuffix
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword()"
+        (click)="clickHidePassword($event)"
+      >
+        <mat-icon>{{
+          hidePassword() ? "visibility_off" : "visibility"
+        }}</mat-icon>
+      </button>
+      @if (form.controls["password"].invalid) {
+        <mat-error>{{ passwordErrorMessage() }}</mat-error>
+      }
+    </mat-form-field>
+
+    <button
+      type="button"
+      mat-flat-button
+      [disabled]="loading"
+      (click)="onSubmit()"
     >
-      <mat-form-field class="!min-w-60">
-        <mat-label>メールアドレス</mat-label>
-        <input
-          id="email"
-          matInput
-          required
-          placeholder="user@example.com"
-          formControlName="email"
-          (blur)="updateEmailErrorMessage()"
-        />
-        @if (form.controls["email"].invalid) {
-          <mat-error>{{ emailErrorMessage() }}</mat-error>
-        }
-      </mat-form-field>
-
-      <mat-form-field>
-        <mat-label>パスワード</mat-label>
-        <input
-          id="password"
-          matInput
-          formControlName="password"
-          minlength="8"
-          [type]="hidePassword() ? 'password' : 'text'"
-        />
-        <button
-          mat-icon-button
-          matSuffix
-          [attr.aria-label]="'Hide password'"
-          [attr.aria-pressed]="hidePassword()"
-          (click)="clickHidePassword($event)"
-        >
-          <mat-icon>{{
-            hidePassword() ? "visibility_off" : "visibility"
-          }}</mat-icon>
-        </button>
-        @if (form.controls["password"].invalid) {
-          <mat-error>{{ passwordErrorMessage() }}</mat-error>
-        }
-      </mat-form-field>
-
-      <div>
-        <button
-          type="button"
-          mat-flat-button
-          [disabled]="loading"
-          (click)="onSubmit()"
-        >
-          {{ loading ? "Loading..." : "アカウント作成" }}
-        </button>
-      </div>
-    </form>
-  </div>
+      {{ loading ? "Loading..." : "アカウント作成" }}
+    </button>
+  </form>
 </div>
