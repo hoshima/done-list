@@ -1,8 +1,31 @@
-import { ApplicationConfig } from '@angular/core';
-import { provideRouter } from '@angular/router';
+import { ApplicationConfig, Injectable } from '@angular/core';
+import {
+  provideRouter,
+  RouterStateSnapshot,
+  TitleStrategy,
+} from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { MAT_FORM_FIELD_DEFAULT_OPTIONS } from '@angular/material/form-field';
+import { Title } from '@angular/platform-browser';
+
+@Injectable({ providedIn: 'root' })
+export class TemplatePageTitleStrategy extends TitleStrategy {
+  appTitle = 'Done List';
+
+  constructor(private readonly title: Title) {
+    super();
+  }
+
+  override updateTitle(routerState: RouterStateSnapshot) {
+    const title = this.buildTitle(routerState);
+    if (title) {
+      this.title.setTitle(`${title} | ${this.appTitle}`);
+    } else {
+      this.title.setTitle(`${this.appTitle}`);
+    }
+  }
+}
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -12,5 +35,6 @@ export const appConfig: ApplicationConfig = {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
       useValue: { appearance: 'outline' },
     },
+    { provide: TitleStrategy, useClass: TemplatePageTitleStrategy },
   ],
 };
