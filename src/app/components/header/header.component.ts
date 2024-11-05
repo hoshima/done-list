@@ -7,7 +7,7 @@ import { MatToolbar } from '@angular/material/toolbar';
 import { UiRepository } from '../../states/ui.repository';
 import { MatIconButton } from '@angular/material/button';
 import { SupabaseService } from '../../services/supabase.service';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-header',
@@ -30,14 +30,18 @@ import { RouterLink } from '@angular/router';
 export class HeaderComponent {
   uiRepository = inject(UiRepository);
   supabaseService = inject(SupabaseService);
+  router = inject(Router);
 
-  session$ = this.supabaseService.session$;
+  sessionSignal = this.supabaseService.sessionSignal;
 
   openDrawer() {
     this.uiRepository.openDrawer();
   }
 
   async logout() {
-    this.supabaseService.signOut();
+    await this.supabaseService.signOut();
+    alert('ログアウトしました');
+
+    this.router.navigateByUrl('/login');
   }
 }
