@@ -17,10 +17,10 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge } from 'rxjs';
 import { SupabaseService } from '../../services/supabase.service';
 import { MatIcon } from '@angular/material/icon';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-sign-up',
   standalone: true,
   imports: [
     MatFormFieldModule,
@@ -29,15 +29,14 @@ import { Router, RouterLink } from '@angular/router';
     ReactiveFormsModule,
     MatButtonModule,
     MatIcon,
-    RouterLink,
   ],
-  templateUrl: './login.component.html',
+  templateUrl: './sign-up.component.html',
   host: {
     class: 'block container mx-auto',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class LoginComponent {
+export default class SignUpComponent {
   readonly #supabaseService = inject(SupabaseService);
   readonly #fb = inject(NonNullableFormBuilder);
   readonly #router = inject(Router);
@@ -84,8 +83,8 @@ export default class LoginComponent {
   updatePasswordErrorMessage() {
     if (this.form.controls['password'].hasError('required')) {
       this.passwordErrorMessage.set('パスワードを入力してください');
-    } else if (this.form.controls['password'].hasError('minlength')) {
-      this.passwordErrorMessage.set('パスワードは8文字以上で入力してください');
+    } else if (this.form.controls['password'].hasError('minLength')) {
+      this.passwordErrorMessage.set('パスワードは8文字以上で設定してください');
     } else {
       this.passwordErrorMessage.set('');
     }
@@ -104,8 +103,9 @@ export default class LoginComponent {
         return;
       }
 
-      const { error } = await this.#supabaseService.signIn(formValue);
+      const { error } = await this.#supabaseService.signUp(formValue);
       if (error) throw error;
+      alert('アカウントを作成しました');
 
       this.#router.navigateByUrl('/');
     } catch (error) {

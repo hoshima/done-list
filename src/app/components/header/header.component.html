@@ -13,7 +13,7 @@
     <mat-icon>person</mat-icon>
   </button>
   <mat-menu #menu="matMenu">
-    @if (session$ | async; as session) {
+    @if (sessionSignal(); as session) {
       <div mat-menu-item>
         {{ session.user.email }}
       </div>

@@ -41,12 +41,10 @@ export class SideMenuComponent {
   }
 
   async onExport() {
-    const session = await this.#supabaseService.sessionAsync;
-    if (!session.data.session) {
+    const session = this.#supabaseService.sessionSignal();
+    if (!session) {
       return;
     }
-    this.externalFileService.exportTasksToJson(
-      session.data.session.user.id as UserId,
-    );
+    this.externalFileService.exportTasksToJson(session.user.id as UserId);
   }
 }

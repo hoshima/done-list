@@ -1,5 +1,5 @@
 <div class="flex flex-col gap-4 items-center">
-  <h1 class="text-xl">ログイン</h1>
+  <h1 class="text-xl">アカウント作成</h1>
 
   <form
     class="flex flex-col gap-4 items-center w-full"
@@ -28,7 +28,7 @@
         matInput
         formControlName="password"
         minlength="8"
-        autocomplete="current-password"
+        autocomplete="new-password"
         [type]="hidePassword() ? 'password' : 'text'"
         (blur)="updatePasswordErrorMessage()"
       />
@@ -54,11 +54,7 @@
       [disabled]="loading"
       (click)="onSubmit()"
     >
-      {{ loading ? "Loading..." : "ログイン" }}
+      {{ loading ? "Loading..." : "アカウント作成" }}
     </button>
-
-    <a type="button" mat-stroked-button [routerLink]="'/sign-up'">
-      アカウント作成
-    </a>
   </form>
 </div>
