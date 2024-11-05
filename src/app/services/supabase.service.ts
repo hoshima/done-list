@@ -8,7 +8,7 @@ import {
 } from '@supabase/supabase-js';
 import { environment } from '../../environments/environment';
 import { Database, TablesInsert, TablesUpdate } from '../types/database.types';
-import { TaskId, UserId } from '../types/branded.type';
+import { TaskId } from '../types/branded.type';
 import { Task } from '../types/task.type';
 
 @Injectable({
@@ -43,8 +43,7 @@ export class SupabaseService {
             return;
           }
 
-          const { data: tasks } = await this.tasks(session.user.id as UserId);
-          this.tasksSignal.set(tasks);
+          await this.fetchTasks();
         },
       )
       .subscribe();
@@ -66,12 +65,23 @@ export class SupabaseService {
       .single();
   }
 
-  tasks(userId: UserId) {
-    return this.#supabase
+  async fetchTasks() {
+    const session = this.sessionSignal();
+    if (!session?.user.id) {
+      return;
+    }
+
+    const q = this.#supabase
       .from('tasks')
       .select(`id, name, date, description`)
-      .eq('user_id', userId)
+      .eq('user_id', session.user.id)
       .order('date', { ascending: false });
+
+    const { data } = await q;
+
+    this.tasksSignal.set(data);
+
+    return data;
   }
 
   signUp(credentials: { email: string; password: string }) {

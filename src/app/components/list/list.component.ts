@@ -8,14 +8,12 @@ import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
-import { ActivatedRoute } from '@angular/router';
 import { SupabaseService } from '../../services/supabase.service';
-import { Session } from '@supabase/supabase-js';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { filter } from 'rxjs';
 import { TaskFormComponent } from '../task-form/task-form.component';
-import { TaskId, UserId } from '../../types/branded.type';
+import { TaskId } from '../../types/branded.type';
 import { Tables } from '../../types/database.types';
 
 @Component({
@@ -39,7 +37,6 @@ import { Tables } from '../../types/database.types';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent implements OnInit {
-  readonly #activatedRoute = inject(ActivatedRoute);
   readonly #supabaseService = inject(SupabaseService);
   readonly #dialog = inject(MatDialog);
   readonly #snackBar = inject(MatSnackBar);
@@ -47,9 +44,7 @@ export class ListComponent implements OnInit {
   tasks = this.#supabaseService.tasksSignal;
 
   async ngOnInit(): Promise<void> {
-    const session: Session = this.#activatedRoute.snapshot.data['user'];
-    const tasks = await this.#supabaseService.tasks(session.user.id as UserId);
-    this.#supabaseService.tasksSignal.set(tasks.data);
+    await this.#supabaseService.fetchTasks();
   }
 
   async clickEditItem(id: TaskId) {

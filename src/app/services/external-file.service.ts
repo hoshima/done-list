@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 import { SupabaseService } from './supabase.service';
-import { UserId } from '../types/branded.type';
 
 @Injectable({
   providedIn: 'root',
@@ -11,8 +10,12 @@ export class ExternalFileService {
   /**
    * タスクをjsonとしてエクスポートする
    */
-  async exportTasksToJson(userId: UserId) {
-    const tasks = (await this.#supabaseService.tasks(userId)).data;
+  async exportTasksToJson() {
+    const tasks = await this.#supabaseService.fetchTasks();
+
+    if (!tasks) {
+      return;
+    }
     const jsonString = JSON.stringify(tasks, undefined, 2);
 
     const a = document.createElement('a');
