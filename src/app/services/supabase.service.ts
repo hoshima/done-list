@@ -65,7 +65,7 @@ export class SupabaseService {
       .single();
   }
 
-  async fetchTasks() {
+  async fetchTasks(keyword?: string) {
     const session = this.sessionSignal();
     if (!session?.user.id) {
       return;
@@ -76,6 +76,10 @@ export class SupabaseService {
       .select(`id, name, date, description`)
       .eq('user_id', session.user.id)
       .order('date', { ascending: false });
+
+    if (keyword) {
+      q.like('name', `%${keyword}%`);
+    }
 
     const { data } = await q;
 
