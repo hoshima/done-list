@@ -70,7 +70,8 @@ export class SupabaseService {
     return this.#supabase
       .from('tasks')
       .select(`id, name, date, description`)
-      .eq('user_id', userId);
+      .eq('user_id', userId)
+      .order('date', { ascending: false });
   }
 
   signUp(credentials: { email: string; password: string }) {
