@@ -1,10 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  effect,
-  inject,
-  signal,
-} from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
 import { ListItemCreate } from '../../types/list-item.type';
 import { MatFabButton } from '@angular/material/button';
@@ -13,21 +7,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { TaskFormComponent } from '../../components/task-form/task-form.component';
 import { filter } from 'rxjs';
 import { SupabaseService } from '../../services/supabase.service';
-import { MatFormField } from '@angular/material/form-field';
-import { FormsModule } from '@angular/forms';
-import { MatInputModule } from '@angular/material/input';
+import { SearchFormComponent } from '../../components/search-form/search-form.component';
 
 @Component({
   selector: 'app-list-page',
   standalone: true,
-  imports: [
-    ListComponent,
-    MatFabButton,
-    MatFormField,
-    MatInputModule,
-    FormsModule,
-    MatIcon,
-  ],
+  imports: [ListComponent, SearchFormComponent, MatFabButton, MatIcon],
   templateUrl: './list-page.component.html',
   host: {
     class: 'block container mx-auto',
@@ -37,11 +22,6 @@ import { MatInputModule } from '@angular/material/input';
 export default class ListPageComponent {
   readonly #dialog = inject(MatDialog);
   readonly #supabaseService = inject(SupabaseService);
-
-  searchValue = signal('');
-  fetchTasksOnSearch = effect(() => {
-    this.#supabaseService.fetchTasks(this.searchValue());
-  });
 
   openAddDialog() {
     this.#dialog
