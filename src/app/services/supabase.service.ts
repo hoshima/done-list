@@ -75,7 +75,8 @@ export class SupabaseService {
       .from('tasks')
       .select(`id, name, date, description`)
       .eq('user_id', session.user.id)
-      .order('date', { ascending: false });
+      .order('date', { ascending: false })
+      .order('name', { ascending: true });
 
     if (keyword) {
       q.like('name', `%${keyword}%`);
