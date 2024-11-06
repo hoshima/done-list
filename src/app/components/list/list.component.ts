@@ -1,10 +1,5 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  inject,
-  OnInit,
-} from '@angular/core';
-import { AsyncPipe, DatePipe, JsonPipe } from '@angular/common';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { DatePipe } from '@angular/common';
 import { MatCard, MatCardContent } from '@angular/material/card';
 import { MatIconButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
@@ -19,15 +14,7 @@ import { Tables } from '../../types/database.types';
 @Component({
   selector: 'app-list',
   standalone: true,
-  imports: [
-    DatePipe,
-    MatCard,
-    MatCardContent,
-    MatIconButton,
-    MatIcon,
-    AsyncPipe,
-    JsonPipe,
-  ],
+  imports: [DatePipe, MatCard, MatCardContent, MatIconButton, MatIcon],
   templateUrl: './list.component.html',
   styles: `
     :host {
@@ -36,16 +23,12 @@ import { Tables } from '../../types/database.types';
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
   readonly #supabaseService = inject(SupabaseService);
   readonly #dialog = inject(MatDialog);
   readonly #snackBar = inject(MatSnackBar);
 
   tasks = this.#supabaseService.tasksSignal;
-
-  async ngOnInit(): Promise<void> {
-    await this.#supabaseService.fetchTasks();
-  }
 
   async clickEditItem(id: TaskId) {
     const { data: item } = await this.#supabaseService.getTask(id);
