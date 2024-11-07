@@ -11,6 +11,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import { UiRepository } from '../../states/ui.repository';
 import { ExternalFileService } from '../../services/external-file.service';
 import { MatDivider } from '@angular/material/divider';
+import { SupabaseService } from '../../services/supabase.service';
 
 @Component({
   selector: 'app-side-menu',
@@ -32,6 +33,9 @@ import { MatDivider } from '@angular/material/divider';
 export class SideMenuComponent {
   uiRepository = inject(UiRepository);
   externalFileService = inject(ExternalFileService);
+  #supabaseService = inject(SupabaseService);
+
+  sessionSignal = this.#supabaseService.sessionSignal;
 
   closeDrawer() {
     this.uiRepository.closeDrawer();

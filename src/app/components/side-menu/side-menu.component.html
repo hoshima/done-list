@@ -5,5 +5,7 @@
   <span>Done List</span></mat-toolbar
 >
 <mat-action-list>
-  <button mat-list-item (click)="onExport()">エクスポート</button>
+  @if (sessionSignal(); as session) {
+    <button mat-list-item (click)="onExport()">エクスポート</button>
+  }
 </mat-action-list>
