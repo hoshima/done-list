@@ -12,6 +12,7 @@ import { UiRepository } from '../../states/ui.repository';
 import { ExternalFileService } from '../../services/external-file.service';
 import { MatDivider } from '@angular/material/divider';
 import { SupabaseService } from '../../services/supabase.service';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-side-menu',
@@ -25,6 +26,7 @@ import { SupabaseService } from '../../services/supabase.service';
     MatListItemTitle,
     MatListItemLine,
     MatDivider,
+    RouterLink,
   ],
   templateUrl: './side-menu.component.html',
   styles: ``,

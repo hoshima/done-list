@@ -18,4 +18,9 @@ export const routes: Routes = [
     title: 'アカウント作成',
     loadComponent: () => import('./pages/sign-up/sign-up.component'),
   },
+  {
+    path: 'privacy',
+    title: 'プライバシーポリシー',
+    loadComponent: () => import('./pages/privacy/privacy.component'),
+  },
 ];
