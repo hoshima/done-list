@@ -79,7 +79,7 @@ export class SupabaseService {
       .order('name', { ascending: true });
 
     if (keyword) {
-      q.like('name', `%${keyword}%`);
+      void q.like('name', `%${keyword}%`);
     }
 
     const { data } = await q;

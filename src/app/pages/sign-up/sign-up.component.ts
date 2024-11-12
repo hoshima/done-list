@@ -107,7 +107,7 @@ export default class SignUpComponent {
       if (error) throw error;
       alert('アカウントを作成しました');
 
-      this.#router.navigateByUrl('/');
+      await this.#router.navigateByUrl('/');
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

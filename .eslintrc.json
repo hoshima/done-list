@@ -27,7 +27,11 @@
             "prefix": "app",
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@typescript-eslint/no-floating-promises": "error"
+      },
+      "parserOptions": {
+        "project": ["./tsconfig.json"]
       }
     },
     {

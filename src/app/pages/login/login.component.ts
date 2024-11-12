@@ -107,7 +107,7 @@ export default class LoginComponent {
       const { error } = await this.#supabaseService.signIn(formValue);
       if (error) throw error;
 
-      this.#router.navigateByUrl('/');
+      await this.#router.navigateByUrl('/');
     } catch (error) {
       if (error instanceof Error) {
         alert(error.message);

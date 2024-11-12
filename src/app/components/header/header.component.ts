@@ -42,6 +42,6 @@ export class HeaderComponent {
     await this.supabaseService.signOut();
     alert('ログアウトしました');
 
-    this.router.navigateByUrl('/login');
+    await this.router.navigateByUrl('/login');
   }
 }

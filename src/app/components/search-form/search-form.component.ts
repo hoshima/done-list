@@ -22,7 +22,7 @@ export class SearchFormComponent {
   readonly #supabaseService = inject(SupabaseService);
 
   searchValue = signal('');
-  fetchTasksOnSearch = effect(() => {
-    this.#supabaseService.fetchTasks(this.searchValue());
+  fetchTasksOnSearch = effect(async () => {
+    await this.#supabaseService.fetchTasks(this.searchValue());
   });
 }

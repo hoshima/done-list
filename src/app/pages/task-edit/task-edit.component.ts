@@ -57,7 +57,7 @@ export default class TaskEditComponent implements OnInit {
       description: this.description(),
     });
 
-    this.#router.navigateByUrl('');
+    await this.#router.navigateByUrl('');
   }
 
   async clickDeleteButton() {
@@ -68,10 +68,10 @@ export default class TaskEditComponent implements OnInit {
     await this.#supabase.deleteTask(this.id);
 
     this.#snackBar.open(`${this.title()}を削除しました`);
-    this.#router.navigateByUrl('');
+    await this.#router.navigateByUrl('');
   }
 
-  clickCancelButton() {
-    this.#router.navigateByUrl('');
+  async clickCancelButton() {
+    await this.#router.navigateByUrl('');
   }
 }

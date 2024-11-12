@@ -35,7 +35,7 @@ export class SideMenuComponent {
   }
 
   async onExport() {
-    this.externalFileService.exportTasksToJson();
+    await this.externalFileService.exportTasksToJson();
   }
 
   clickPrivacy() {
