@@ -8,5 +8,7 @@
   @if (sessionSignal(); as session) {
     <button mat-list-item (click)="onExport()">エクスポート</button>
   }
-  <a mat-list-item routerLink="/privacy">プライバシーポリシー</a>
+  <a mat-list-item routerLink="/privacy" (click)="clickPrivacy()"
+    >プライバシーポリシー</a
+  >
 </mat-action-list>
