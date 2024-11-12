@@ -3,15 +3,19 @@
     <mat-card class="hover:brightness-110">
       <a [routerLink]="task.id + '/edit'">
         <mat-card-header>
-          <mat-card-title>{{ task.name }}</mat-card-title>
+          <mat-card-title>
+            <div [style.viewTransitionName]="'name-' + task.id">
+              {{ task.name }}
+            </div>
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content class="!flex">
           <div class="flex-1">
-            <div>
-              {{ task.description }}
-            </div>
-            <div>
+            <div [style.viewTransitionName]="'date-' + task.id">
               {{ task.date | date: "yyyy/MM/dd" }}
+            </div>
+            <div [style.viewTransitionName]="'description-' + task.id">
+              {{ task.description }}
             </div>
           </div>
         </mat-card-content>
