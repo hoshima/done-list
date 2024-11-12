@@ -1,0 +1,68 @@
+<p class="grid place-items-center">やったことをメモしよう</p>
+
+<form #formModel="ngForm" class="flex flex-col gap-4 py-4">
+  <mat-form-field>
+    <mat-label i18n>タイトル</mat-label>
+    <input
+      #titleModel="ngModel"
+      matInput
+      type="text"
+      name="title"
+      required
+      [(ngModel)]="title"
+    />
+    @if (titleModel.invalid) {
+      <mat-error i18n>必須入力</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n>日付</mat-label>
+    <input
+      #dateModel="ngModel"
+      matInput
+      type="date"
+      name="date"
+      required
+      max="9999-12-31"
+      [(ngModel)]="date"
+    />
+    @if (dateModel.invalid) {
+      <mat-error i18n>必須入力</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field>
+    <mat-label i18n>説明</mat-label>
+    <textarea matInput name="description" [(ngModel)]="description"></textarea>
+  </mat-form-field>
+</form>
+
+<div class="flex flex-col-reverse md:flex-row justify-between gap-4">
+  <button
+    i18n
+    mat-stroked-button
+    class="!text-red-500"
+    type="button"
+    (click)="clickDeleteButton()"
+  >
+    削除
+  </button>
+
+  <div class="flex flex-col-reverse md:flex-row gap-4">
+    <button i18n mat-stroked-button type="button" (click)="clickCancelButton()">
+      キャンセル
+    </button>
+
+    <button
+      i18n
+      mat-flat-button
+      color="primary"
+      type="button"
+      [disabled]="!formModel.valid"
+      (click)="clickEditButton()"
+    >
+      編集
+    </button>
+  </div>
+</div>

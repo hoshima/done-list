@@ -1,38 +1,21 @@
 <div class="flex flex-col gap-4">
   @for (task of tasks(); track task.id) {
-    <mat-card>
-      <mat-card-content class="!flex">
-        <div class="flex-1">
-          <div class="text-xl">
-            {{ task.name }}
+    <mat-card class="hover:brightness-110">
+      <a [routerLink]="task.id + '/edit'">
+        <mat-card-header>
+          <mat-card-title>{{ task.name }}</mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="!flex">
+          <div class="flex-1">
+            <div>
+              {{ task.description }}
+            </div>
+            <div>
+              {{ task.date | date: "yyyy/MM/dd" }}
+            </div>
           </div>
-          <div>
-            {{ task.description }}
-          </div>
-          <div>
-            {{ task.date | date: "yyyy/MM/dd" }}
-          </div>
-        </div>
-        <div class="flex-none">
-          <button
-            mat-icon-button
-            aria-label="編集"
-            (click)="clickEditItem(task.id)"
-          >
-            <mat-icon>edit</mat-icon>
-          </button>
-        </div>
-        <div class="flex-none">
-          <button
-            mat-icon-button
-            aria-label="削除"
-            class="!text-red-500"
-            (click)="clickDeleteItem(task.id, task.name)"
-          >
-            <mat-icon>delete</mat-icon>
-          </button>
-        </div>
-      </mat-card-content>
+        </mat-card-content>
+      </a>
     </mat-card>
   }
 </div>
