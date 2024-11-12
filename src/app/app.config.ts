@@ -3,6 +3,7 @@ import {
   provideRouter,
   RouterStateSnapshot,
   TitleStrategy,
+  withViewTransitions,
 } from '@angular/router';
 import { routes } from './app.routes';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
@@ -30,7 +31,7 @@ export class TemplatePageTitleStrategy extends TitleStrategy {
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideRouter(routes),
+    provideRouter(routes, withViewTransitions()),
     provideAnimationsAsync(),
     {
       provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

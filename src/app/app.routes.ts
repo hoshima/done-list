@@ -9,6 +9,12 @@ export const routes: Routes = [
     resolve: { user: loginUserResolver },
   },
   {
+    path: ':id/edit',
+    title: 'やったことの編集',
+    loadComponent: () => import('./pages/task-edit/task-edit.component'),
+    resolve: { user: loginUserResolver },
+  },
+  {
     path: 'login',
     title: 'ログイン',
     loadComponent: () => import('./pages/login/login.component'),
