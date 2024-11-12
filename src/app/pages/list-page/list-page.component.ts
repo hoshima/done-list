@@ -1,6 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { ListComponent } from '../../components/list/list.component';
-import { ListItemCreate } from '../../types/list-item.type';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -8,6 +7,7 @@ import { TaskFormComponent } from '../../components/task-form/task-form.componen
 import { filter } from 'rxjs';
 import { SupabaseService } from '../../services/supabase.service';
 import { SearchFormComponent } from '../../components/search-form/search-form.component';
+import { TaskCreate } from '../../types/task.type';
 
 @Component({
   selector: 'app-list-page',
@@ -25,7 +25,7 @@ export default class ListPageComponent {
 
   openAddDialog() {
     this.#dialog
-      .open<TaskFormComponent, null, ListItemCreate>(TaskFormComponent, {
+      .open<TaskFormComponent, null, TaskCreate>(TaskFormComponent, {
         panelClass: ['w-10/12', 'md:w-4/12'],
       })
       .afterClosed()

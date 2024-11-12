@@ -7,7 +7,6 @@ import {
   output,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { ListItemCreate, ListItem } from '../../types/list-item.type';
 import {
   MatError,
   MatFormField,
@@ -24,6 +23,7 @@ import {
   MatDialogRef,
   MAT_DIALOG_DATA,
 } from '@angular/material/dialog';
+import { Task, TaskCreate } from '../../types/task.type';
 
 @Component({
   selector: 'app-form',
@@ -51,14 +51,14 @@ import {
 export class TaskFormComponent {
   dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
-  add = output<ListItemCreate>();
+  add = output<TaskCreate>();
 
   id = model<string>();
   title = model<string>();
   date = model<string>(cdate().format('YYYY-MM-DD'));
   description = model<string>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: ListItem) {
+  constructor(@Inject(MAT_DIALOG_DATA) public data: Task) {
     if (data) {
       this.id.set(data.id);
       this.title.set(data.name);

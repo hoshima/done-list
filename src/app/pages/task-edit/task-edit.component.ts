@@ -33,7 +33,7 @@ export default class TaskEditComponent implements OnInit {
   id!: TaskId;
 
   title = model<string>();
-  date = model<string | null>(null);
+  date = model<string>();
   description = model<string>();
 
   constructor() {
