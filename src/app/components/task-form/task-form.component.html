@@ -47,27 +47,14 @@
     キャンセル
   </button>
 
-  @if (id()) {
-    <button
-      i18n
-      mat-flat-button
-      color="primary"
-      type="button"
-      [disabled]="formModel.invalid"
-      (click)="clickEditButton()"
-    >
-      やった
-    </button>
-  } @else {
-    <button
-      i18n
-      mat-flat-button
-      color="primary"
-      type="button"
-      [disabled]="formModel.invalid"
-      (click)="clickAddButton()"
-    >
-      やった
-    </button>
-  }
+  <button
+    i18n
+    mat-flat-button
+    color="primary"
+    type="button"
+    [disabled]="formModel.invalid"
+    (click)="clickAddButton()"
+  >
+    やった
+  </button>
 </mat-dialog-actions>

@@ -53,27 +53,16 @@ export class TaskFormComponent {
 
   add = output<TaskCreate>();
 
-  id = model<string>();
   title = model<string>();
   date = model<string>(cdate().format('YYYY-MM-DD'));
   description = model<string>();
 
   constructor(@Inject(MAT_DIALOG_DATA) public data: Task) {
     if (data) {
-      this.id.set(data.id);
       this.title.set(data.name);
       this.date.set(data.date);
       this.description.set(data.description);
     }
-  }
-
-  clickEditButton() {
-    this.dialogRef.close({
-      id: this.id(),
-      name: this.title(),
-      date: this.date(),
-      description: this.description(),
-    });
   }
 
   clickAddButton() {
