@@ -53,7 +53,7 @@
       mat-flat-button
       color="primary"
       type="button"
-      [disabled]="!formModel.valid"
+      [disabled]="formModel.invalid"
       (click)="clickEditButton()"
     >
       やった
@@ -64,7 +64,7 @@
       mat-flat-button
       color="primary"
       type="button"
-      [disabled]="!formModel.valid"
+      [disabled]="formModel.invalid"
       (click)="clickAddButton()"
     >
       やった
