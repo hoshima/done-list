@@ -5,7 +5,7 @@ export const routes: Routes = [
   {
     path: '',
     title: '',
-    loadComponent: () => import('./pages/list-page/list-page.component'),
+    loadComponent: () => import('./pages/task-list/task-list.component'),
     resolve: { user: loginUserResolver },
   },
   {

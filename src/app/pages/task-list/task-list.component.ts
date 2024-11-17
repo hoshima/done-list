@@ -10,16 +10,16 @@ import { SearchFormComponent } from '../../components/search-form/search-form.co
 import { TaskCreate } from '../../types/task.type';
 
 @Component({
-  selector: 'app-list-page',
+  selector: 'app-task-list',
   standalone: true,
   imports: [ListComponent, SearchFormComponent, MatFabButton, MatIcon],
-  templateUrl: './list-page.component.html',
+  templateUrl: './task-list.component.html',
   host: {
     class: 'block container mx-auto',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class ListPageComponent {
+export default class TaskListComponent {
   readonly #dialog = inject(MatDialog);
   readonly #supabaseService = inject(SupabaseService);
 
