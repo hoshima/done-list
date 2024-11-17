@@ -3,7 +3,11 @@
     <mat-card appearance="outlined" class="hover:brightness-110">
       <a [routerLink]="task.id + '/edit'">
         <mat-card-header [style.viewTransitionName]="'name-' + task.id">
-          <mat-card-title>{{ task.name }}</mat-card-title>
+          <mat-card-title>
+            <h2>
+              {{ task.name }}
+            </h2>
+          </mat-card-title>
         </mat-card-header>
         <mat-card-content class="!flex">
           <div class="flex-1">
