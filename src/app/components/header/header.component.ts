@@ -1,4 +1,3 @@
-import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { MatDivider } from '@angular/material/divider';
 import { MatIcon } from '@angular/material/icon';
@@ -21,7 +20,6 @@ import { Router, RouterLink } from '@angular/router';
     MatIcon,
     MatIconButton,
     MatDivider,
-    AsyncPipe,
   ],
   templateUrl: './header.component.html',
   styles: ``,
