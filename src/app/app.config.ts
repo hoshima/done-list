@@ -1,4 +1,9 @@
-import { ApplicationConfig, Injectable, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  Injectable,
+  isDevMode,
+  provideExperimentalZonelessChangeDetection,
+} from '@angular/core';
 import {
   provideRouter,
   RouterStateSnapshot,
@@ -42,5 +47,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    provideExperimentalZonelessChangeDetection(),
   ],
 };
