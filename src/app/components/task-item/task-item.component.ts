@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
 import { Task } from '../../types/task.type';
 
 @Component({
-  selector: 'app-list',
+  selector: 'app-task-item',
   standalone: true,
   imports: [
     DatePipe,
@@ -20,12 +20,12 @@ import { Task } from '../../types/task.type';
     MatCardTitle,
     MatCardContent,
   ],
-  templateUrl: './list.component.html',
+  templateUrl: './task-item.component.html',
   host: {
     class: 'block',
   },
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ListComponent {
+export class TaskItemComponent {
   readonly task = input.required<Task>();
 }

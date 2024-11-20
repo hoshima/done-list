@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { ListComponent } from '../../components/list/list.component';
+import { TaskItemComponent } from '../../components/task-item/task-item.component';
 import { MatFabButton } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatDialog } from '@angular/material/dialog';
@@ -12,7 +12,7 @@ import { TaskCreate } from '../../types/task.type';
 @Component({
   selector: 'app-task-list',
   standalone: true,
-  imports: [ListComponent, SearchFormComponent, MatFabButton, MatIcon],
+  imports: [TaskItemComponent, SearchFormComponent, MatFabButton, MatIcon],
   templateUrl: './task-list.component.html',
   host: {
     class: 'block container mx-auto',
