@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  Inject,
   inject,
   model,
   output,
@@ -48,6 +47,8 @@ import { Task, TaskCreate } from '../../types/task.type';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TaskFormComponent {
+  data = inject<Task>(MAT_DIALOG_DATA);
+
   dialogRef = inject(MatDialogRef<TaskFormComponent>);
 
   add = output<TaskCreate>();
@@ -56,11 +57,11 @@ export class TaskFormComponent {
   date = model<string>(cdate().format('YYYY-MM-DD'));
   description = model<string>();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: Task) {
-    if (data) {
-      this.title.set(data.name);
-      this.date.set(data.date);
-      this.description.set(data.description);
+  constructor() {
+    if (this.data) {
+      this.title.set(this.data.name);
+      this.date.set(this.data.date);
+      this.description.set(this.data.description);
     }
   }
 
