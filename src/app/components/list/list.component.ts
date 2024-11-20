@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import {
   MatCard,
@@ -6,8 +6,8 @@ import {
   MatCardHeader,
   MatCardTitle,
 } from '@angular/material/card';
-import { SupabaseService } from '../../services/supabase.service';
 import { RouterLink } from '@angular/router';
+import { Task } from '../../types/task.type';
 
 @Component({
   selector: 'app-list',
@@ -27,7 +27,5 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ListComponent {
-  readonly #supabaseService = inject(SupabaseService);
-
-  tasks = this.#supabaseService.tasksSignal;
+  readonly task = input.required<Task>();
 }

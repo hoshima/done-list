@@ -1,25 +1,21 @@
-<div class="flex flex-col gap-4">
-  @for (task of tasks(); track task.id) {
-    <mat-card appearance="outlined" class="hover:brightness-110">
-      <a [routerLink]="task.id + '/edit'">
-        <mat-card-header [style.viewTransitionName]="'name-' + task.id">
-          <mat-card-title>
-            <h2>
-              {{ task.name }}
-            </h2>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="!flex">
-          <div class="flex-1">
-            <div [style.viewTransitionName]="'date-' + task.id">
-              {{ task.date | date: "yyyy/MM/dd" }}
-            </div>
-            <div [style.viewTransitionName]="'description-' + task.id">
-              {{ task.description }}
-            </div>
-          </div>
-        </mat-card-content>
-      </a>
-    </mat-card>
-  }
-</div>
+<mat-card appearance="outlined" class="hover:brightness-110">
+  <a [routerLink]="task().id + '/edit'">
+    <mat-card-header [style.viewTransitionName]="'name-' + task().id">
+      <mat-card-title>
+        <h2>
+          {{ task().name }}
+        </h2>
+      </mat-card-title>
+    </mat-card-header>
+    <mat-card-content class="!flex">
+      <div class="flex-1">
+        <div [style.viewTransitionName]="'date-' + task().id">
+          {{ task().date | date: "yyyy/MM/dd" }}
+        </div>
+        <div [style.viewTransitionName]="'description-' + task().id">
+          {{ task().description }}
+        </div>
+      </div>
+    </mat-card-content>
+  </a>
+</mat-card>

@@ -23,6 +23,8 @@ export default class TaskListComponent {
   readonly #dialog = inject(MatDialog);
   readonly #supabaseService = inject(SupabaseService);
 
+  tasks = this.#supabaseService.tasksSignal;
+
   openAddDialog() {
     this.#dialog
       .open<TaskFormComponent, null, TaskCreate>(TaskFormComponent, {
