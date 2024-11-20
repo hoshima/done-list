@@ -2,7 +2,7 @@
 <mat-dialog-content>
   <form #formModel="ngForm" class="flex flex-col gap-4 py-4">
     <mat-form-field>
-      <mat-label i18n>タイトル</mat-label>
+      <mat-label>タイトル</mat-label>
       <input
         #titleModel="ngModel"
         matInput
@@ -12,12 +12,12 @@
         [(ngModel)]="title"
       />
       @if (titleModel.invalid) {
-        <mat-error i18n>必須入力</mat-error>
+        <mat-error>必須入力</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label i18n>日付</mat-label>
+      <mat-label>日付</mat-label>
       <input
         #dateModel="ngModel"
         matInput
@@ -28,12 +28,12 @@
         [(ngModel)]="date"
       />
       @if (dateModel.invalid) {
-        <mat-error i18n>必須入力</mat-error>
+        <mat-error>必須入力</mat-error>
       }
     </mat-form-field>
 
     <mat-form-field>
-      <mat-label i18n>説明</mat-label>
+      <mat-label>説明</mat-label>
       <textarea
         matInput
         name="description"
@@ -43,12 +43,9 @@
   </form>
 </mat-dialog-content>
 <mat-dialog-actions align="end">
-  <button i18n mat-button type="button" [mat-dialog-close]="null">
-    キャンセル
-  </button>
+  <button mat-button type="button" [mat-dialog-close]="null">キャンセル</button>
 
   <button
-    i18n
     mat-flat-button
     color="primary"
     type="button"
