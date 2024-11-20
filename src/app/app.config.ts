@@ -1,4 +1,10 @@
-import { ApplicationConfig, Injectable, isDevMode } from '@angular/core';
+import {
+  ApplicationConfig,
+  Injectable,
+  isDevMode,
+  provideExperimentalZonelessChangeDetection,
+  inject,
+} from '@angular/core';
 import {
   provideRouter,
   RouterStateSnapshot,
@@ -13,9 +19,11 @@ import { provideServiceWorker } from '@angular/service-worker';
 
 @Injectable({ providedIn: 'root' })
 export class TemplatePageTitleStrategy extends TitleStrategy {
+  private readonly title = inject(Title);
+
   appTitle = 'Done List';
 
-  constructor(private readonly title: Title) {
+  constructor() {
     super();
   }
 
@@ -42,5 +50,6 @@ export const appConfig: ApplicationConfig = {
       enabled: !isDevMode(),
       registrationStrategy: 'registerWhenStable:30000',
     }),
+    provideExperimentalZonelessChangeDetection(),
   ],
 };

@@ -10,7 +10,6 @@ import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-side-menu',
-  standalone: true,
   imports: [
     MatToolbarModule,
     MatIcon,

@@ -13,7 +13,6 @@ import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-search-form',
-  standalone: true,
   imports: [MatFormField, MatInputModule, FormsModule, MatIcon],
   templateUrl: './search-form.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
