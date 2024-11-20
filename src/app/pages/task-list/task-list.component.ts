@@ -11,7 +11,6 @@ import { TaskCreate } from '../../types/task.type';
 
 @Component({
   selector: 'app-task-list',
-  standalone: true,
   imports: [TaskItemComponent, SearchFormComponent, MatFabButton, MatIcon],
   templateUrl: './task-list.component.html',
   host: {

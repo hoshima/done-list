@@ -27,7 +27,6 @@ import { Task, TaskCreate } from '../../types/task.type';
 
 @Component({
   selector: 'app-form',
-  standalone: true,
   imports: [
     FormsModule,
     MatFormField,

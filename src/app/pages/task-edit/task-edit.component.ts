@@ -16,7 +16,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-task',
-  standalone: true,
   imports: [FormsModule, MatFormField, MatInput, MatLabel, MatButton, MatError],
   templateUrl: './task-edit.component.html',
   host: {

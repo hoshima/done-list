@@ -21,7 +21,6 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sign-up',
-  standalone: true,
   imports: [
     MatFormFieldModule,
     MatInputModule,

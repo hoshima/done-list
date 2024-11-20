@@ -11,7 +11,6 @@ import { Task } from '../../types/task.type';
 
 @Component({
   selector: 'app-task-item',
-  standalone: true,
   imports: [
     DatePipe,
     RouterLink,
