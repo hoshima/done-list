@@ -41,10 +41,17 @@ export class LoginGoogleComponent implements OnInit {
   }
 
   async onGoogleSignIn(res: CredentialResponse) {
-    const { error } = await this.#supabase.signInWithGoogle(res);
+    try {
+      const { error } = await this.#supabase.signInWithGoogle(res);
+      if (error) {
+        throw error;
+      }
 
-    if (!error) {
       await this.#router.navigateByUrl('/');
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
   }
 }
