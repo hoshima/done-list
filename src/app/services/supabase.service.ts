@@ -11,6 +11,12 @@ import { Database, TablesInsert, TablesUpdate } from '../types/database.types';
 import { TaskId } from '../types/branded.type';
 import { Task } from '../types/task.type';
 
+export type CredentialResponse = {
+  credential: string;
+  select_by: string;
+  state?: string;
+};
+
 @Injectable({
   providedIn: 'root',
 })
@@ -95,6 +101,13 @@ export class SupabaseService {
 
   signIn(credentials: SignInWithPasswordCredentials) {
     return this.#supabase.auth.signInWithPassword(credentials);
+  }
+
+  async signInWithGoogle(response: CredentialResponse) {
+    return this.#supabase.auth.signInWithIdToken({
+      provider: 'google',
+      token: response.credential,
+    });
   }
 
   signOut() {
