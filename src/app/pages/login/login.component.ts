@@ -18,6 +18,7 @@ import { merge } from 'rxjs';
 import { SupabaseService } from '../../services/supabase.service';
 import { MatIcon } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
+import { LoginGoogleComponent } from '../../components/login-google/login-google.component';
 
 @Component({
   selector: 'app-login',
@@ -29,6 +30,7 @@ import { Router, RouterLink } from '@angular/router';
     MatButtonModule,
     MatIcon,
     RouterLink,
+    LoginGoogleComponent,
   ],
   templateUrl: './login.component.html',
   host: {
@@ -40,6 +42,7 @@ export default class LoginComponent {
   readonly #supabaseService = inject(SupabaseService);
   readonly #fb = inject(NonNullableFormBuilder);
   readonly #router = inject(Router);
+
   loading = false;
 
   readonly form = this.#fb.group({
