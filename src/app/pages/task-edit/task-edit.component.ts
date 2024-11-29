@@ -64,7 +64,12 @@ export default class TaskEditComponent implements OnInit {
       return;
     }
 
-    await this.#supabase.deleteTask(this.id);
+    try {
+      await this.#supabase.deleteTask(this.id);
+    } catch (error) {
+      this.#snackBar.open(`削除が失敗しました`);
+      return;
+    }
 
     this.#snackBar.open(`${this.title()}を削除しました`);
     await this.#router.navigateByUrl('');

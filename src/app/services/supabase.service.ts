@@ -134,6 +134,6 @@ export class SupabaseService {
   }
 
   deleteTask(id: TaskId) {
-    return this.#supabase.from('tasks').delete().eq('id', id);
+    return this.#supabase.from('tasks').delete().eq('id', id).throwOnError();
   }
 }
