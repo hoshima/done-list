@@ -1,6 +1,8 @@
 <mat-drawer-container class="h-full" hasBackdrop="true" autosize>
   <mat-drawer mode="over" [opened]="drawerOpened$ | async">
-    <app-side-menu></app-side-menu>
+    @defer {
+      <app-side-menu></app-side-menu>
+    }
   </mat-drawer>
 
   <mat-drawer-content>
