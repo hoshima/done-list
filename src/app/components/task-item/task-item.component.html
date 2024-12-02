@@ -1,5 +1,5 @@
 <mat-card appearance="outlined" class="hover:brightness-110">
-  <a [routerLink]="task().id + '/edit'">
+  <a [routerLink]="'done/' + task().id">
     <mat-card-header [style.viewTransitionName]="'name-' + task().id">
       <mat-card-title>
         <h2>

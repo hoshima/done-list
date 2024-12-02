@@ -10,6 +10,10 @@ export const routes: Routes = [
   },
   {
     path: ':id/edit',
+    redirectTo: 'done/:id',
+  },
+  {
+    path: 'done/:id',
     title: 'やったことの編集',
     loadComponent: () => import('./pages/task-edit/task-edit.component'),
     resolve: { user: loginUserResolver },
