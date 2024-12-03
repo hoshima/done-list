@@ -5,6 +5,7 @@
   <span>やったログ</span></mat-toolbar
 >
 <mat-action-list>
+  <a mat-list-item routerLink="/" (click)="clickHome()">ホーム</a>
   @if (sessionSignal(); as session) {
     <button mat-list-item (click)="onExport()">エクスポート</button>
   }

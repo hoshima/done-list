@@ -37,6 +37,10 @@ export class SideMenuComponent {
     await this.externalFileService.exportTasksToJson();
   }
 
+  clickHome() {
+    this.uiRepository.closeDrawer();
+  }
+
   clickPrivacy() {
     this.uiRepository.closeDrawer();
   }
