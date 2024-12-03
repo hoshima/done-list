@@ -1,6 +1,6 @@
 {
-  "name": "done-list",
-  "short_name": "done-list",
+  "name": "やったログ",
+  "short_name": "やったログ",
   "theme_color": "#1976d2",
   "background_color": "#fafafa",
   "display": "standalone",

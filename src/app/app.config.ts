@@ -22,7 +22,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 export class TemplatePageTitleStrategy extends TitleStrategy {
   private readonly title = inject(Title);
 
-  appTitle = 'Done List';
+  appTitle = 'やったログ';
 
   constructor() {
     super();
