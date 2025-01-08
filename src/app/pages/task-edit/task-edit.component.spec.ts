@@ -1,6 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import TaskEditComponent from './task-edit.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+import { routes } from '../../app.routes';
 
 describe('TaskEditComponent', () => {
   let component: TaskEditComponent;
@@ -8,7 +12,11 @@ describe('TaskEditComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [TaskEditComponent],
+      imports: [TaskEditComponent, BrowserAnimationsModule],
+      providers: [
+        provideExperimentalZonelessChangeDetection(),
+        provideRouter(routes),
+      ],
     }).compileComponents();
 
     fixture = TestBed.createComponent(TaskEditComponent);

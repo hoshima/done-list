@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SearchFormComponent } from './search-form.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('SearchFormComponent', () => {
   let component: SearchFormComponent;
@@ -8,7 +10,8 @@ describe('SearchFormComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SearchFormComponent],
+      imports: [SearchFormComponent, BrowserAnimationsModule],
+      providers: [provideExperimentalZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(SearchFormComponent);
