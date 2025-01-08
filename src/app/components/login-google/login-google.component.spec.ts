@@ -1,6 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LoginGoogleComponent } from './login-google.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { provideExperimentalZonelessChangeDetection } from '@angular/core';
 
 describe('GoogleLoginComponent', () => {
   let component: LoginGoogleComponent;
@@ -8,7 +10,8 @@ describe('GoogleLoginComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [LoginGoogleComponent],
+      imports: [LoginGoogleComponent, BrowserAnimationsModule],
+      providers: [provideExperimentalZonelessChangeDetection()],
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginGoogleComponent);
