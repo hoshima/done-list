@@ -4,7 +4,7 @@ import { SupabaseService } from '../services/supabase.service';
 import { Session } from '@supabase/supabase-js';
 
 export const loginUserResolver: ResolveFn<
-  Session | null | undefined
+  Session | RedirectCommand
 > = async () => {
   const router = inject(Router);
 

@@ -1,10 +1,13 @@
 import { TestBed } from '@angular/core/testing';
-import { ResolveFn } from '@angular/router';
+import { RedirectCommand, ResolveFn } from '@angular/router';
 
 import { loginUserResolver } from './login-user.resolver';
+import { Session } from '@supabase/supabase-js';
 
 describe('authResolver', () => {
-  const executeResolver: ResolveFn<boolean> = (...resolverParameters) =>
+  const executeResolver: ResolveFn<Session | RedirectCommand> = (
+    ...resolverParameters
+  ) =>
     TestBed.runInInjectionContext(() =>
       loginUserResolver(...resolverParameters),
     );
