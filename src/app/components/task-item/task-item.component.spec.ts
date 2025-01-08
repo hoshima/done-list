@@ -23,6 +23,15 @@ describe('TaskItemComponent', () => {
 
     fixture = TestBed.createComponent(TaskItemComponent);
     component = fixture.componentInstance;
+
+    const expectedTask: Task = {
+      date: '2021-08-01',
+      description: 'description',
+      id: crypto.randomUUID() as TaskId,
+      name: 'name',
+    };
+    fixture.componentRef.setInput('task', expectedTask);
+
     fixture.detectChanges();
   });
 
