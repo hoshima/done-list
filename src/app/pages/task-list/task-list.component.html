@@ -2,7 +2,7 @@
 
 <app-search-form class="w-full mx-auto"></app-search-form>
 
-<div class="flex flex-col gap-4">
+<div class="flex flex-col gap-4 pb-4 md:px-4">
   @for (task of tasks(); track task.id) {
     <app-task-item [task]="task" />
   }
