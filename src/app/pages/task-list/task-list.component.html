@@ -8,8 +8,11 @@
   }
 </div>
 
-<div class="fixed right-4 bottom-4">
-  <button mat-fab aria-label="やったことを追加する" (click)="openAddDialog()">
-    <mat-icon>add</mat-icon>
-  </button>
-</div>
+<button
+  mat-fab
+  class="!fixed right-4 md:right-8 bottom-4"
+  aria-label="やったことを追加する"
+  (click)="openAddDialog()"
+>
+  <mat-icon>add</mat-icon>
+</button>
